@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +19,15 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', function () {
-    return view('layouts.app');
+    return view('layouts.frontend.inc.master');
+});
+
+
+Route::prefix('admin/events')->group(function () {
+    Route::get('/', [EventController::class, 'index']);
+    Route::get('/create', [EventController::class, 'create']);
+    Route::post('/', [EventController::class, 'store']);
+    Route::get('/{id}/edit', [EventController::class, 'edit']);
+    Route::put('/{id}', [EventController::class, 'update']);
+    Route::delete('/{id}', [EventController::class, 'destroy']);
 });
