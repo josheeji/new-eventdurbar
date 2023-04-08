@@ -31,6 +31,7 @@
     <!-- End Delete Modal -->
 
 
+
     <div class="col-lg-12">
 
         <div class="card">
@@ -52,22 +53,10 @@
                         <thead>
                             <tr>
 
-                                <th scope="col">S.No.</th>
+                                <th scope="col" width="10%">S.No.</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Organizer Name</th>
-                                <th scope="col">Location</th>
-                                <th scope="col">Event Type</th>
                                 <th scope="col">Image</th>
-                                {{-- <th scope="col">Event Template</th> --}}
-                                <th scope="col">Start Date</th>
-                                <th scope="col">End Date</th>
-
-                                <th scope="col">Event start Time</th>
-
-                                {{-- <th scope="col">Description</th>
-                                <th scope="col">Certificate Template</th> --}}
-
-
+                                <th scope="col">Short Description</th>
                                 <th class="text-center" width="170">Action</th>
 
                             </tr>
@@ -80,32 +69,23 @@
                                     <td>{{ $i++ }} </td>
                                     <td>{{ $event->name }}</td>
 
-                                    <td>{{ $event->organizer_name }}</td>
-                                    <td>{{ $event->location }}</td>
-                                    <td>{{ $event->eventType->name }}</td>
-                                    {{-- <td>{{ $event->image }}</td> --}}
                                     <td>
-                                        <img src="/backend_assets/images/events/{{ $event->image }}" width="80px" height="80px">
+                                        <img src="/assets/backend/images/events//{{ $event->image }}" width="70px"
+                                            height="70px">
 
                                     </td>
-                                    {{-- <td>{{ $event->eventTemplate->template_name }}</td> --}}
 
-                                    <td>{{ $event->start_date }}</td>
-                                    <td>{{ $event->end_date }}</td>
-                                    {{-- <td>{{ $event->event_time }}</td> --}}
-                                    <td> {{ \Carbon\Carbon::parse($event->event_time)->tz('Asia/Kathmandu')->format('h:i A') }}
-                                    </td>
-
-                                    {{-- <td>{{\Carbon\Carbon::create(2023, 03, 31, 15, 0, 0, 'UTC')->timezone('Asia/Kathmandu');}} </td> --}}
-
-
+                                    <td>{{ $event->short_description }}</td>
                                     <td class="text-center">
+
+                                      
+                                        <a title="Add Participant Types" href="/admin/events/{{ $event->id }}/participant-types"
+                                            class="btn btn-icon btn-circle btn-light"><i class="bi bi-card-checklist"></i></a>
+
                                         <a title="Edit" href="/admin/events/{{ $event->id }}/edit"
                                             class="btn btn-icon btn-circle btn-light"><i class="bi bi-pencil"></i></a>
 
-                                        {{-- <a title="Delete" href="/admin/events/{{ $event->id }}" 
-                                            class="btn btn-icon btn-danger btn-circle delete"><i
-                                                class="bi bi-trash-fill"></i></a> --}}
+
 
                                         <button title="Delete" type="button"
                                             class="btn btn-icon btn-danger btn-circle delete deleteEventBtn"
