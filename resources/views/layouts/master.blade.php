@@ -132,7 +132,7 @@
 
     <script>
         $(document).ready(function() {
-            $("#mySummernote").summernote({
+            $("#short_description").summernote({
                 placeholder: 'Write description...',
                 tabsize: 2,
                 height: 120,

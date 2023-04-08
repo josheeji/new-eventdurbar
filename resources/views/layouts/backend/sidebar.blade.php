@@ -21,60 +21,38 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link collapsed" href="/admin/events">
+                <i class="bi bi-calendar-event"></i>
+                <span>Events</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/admin/participants">
+                <i class="bi bi-file-earmark-person"></i>
+                <span>Participants</span>
+            </a>
+        </li>
+
+
+        <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-journal-text"></i><span>Pages</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="/admin/banners">
-                        <i class="bi bi-circle"></i><span>Banners</span>
-                    </a>
-                </li>
-               
-               
-                <li>
-                    <a href="/admin/event-types">
-                        <i class="bi bi-circle"></i><span>Events Types</span>
-                    </a>
-                </li>
-                <li>
+
+                {{-- <li>
                     <a href="/admin/events">
                         <i class="bi bi-circle"></i><span>Events</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="/admin/participant-types">
-                        <i class="bi bi-circle"></i><span> Participant Type</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/event-templates">
-                        <i class="bi bi-circle"></i><span>Event Templates</span>
-                    </a>
-                </li>
-                <li>
                     <a href="/admin/participants">
-                        <i class="bi bi-circle"></i><span> Participant</span>
-                    </a>
-                </li>
-
-
-                {{-- <li>
-                    <a href="/auth/posts">
-                        <i class="bi bi-circle"></i><span>Post</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/auth/banners">
-                        <i class="bi bi-circle"></i><span>Banner</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/auth/categories">
-                        <i class="bi bi-circle"></i><span>Category</span>
+                        <i class="bi bi-circle"></i><span> Participants</span>
                     </a>
                 </li> --}}
+
             </ul>
 
         <li class="nav-item">
