@@ -79,7 +79,7 @@
                                     <td class="text-center">
 
                                       
-                                        <a title="Add Participant Types" href="/admin/events/{{ $event->id }}/participant-types"
+                                        <a title="View Participant Types" href="/admin/events/{{ $event->id }}/participant-types"
                                             class="btn btn-icon btn-circle btn-light"><i class="bi bi-card-checklist"></i></a>
 
                                         <a title="Edit" href="/admin/events/{{ $event->id }}/edit"
