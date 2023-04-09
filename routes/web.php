@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\ParticipantTypeController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,5 +46,10 @@ Route::prefix('admin/events')->group(function () {
 
 
 Route::prefix('admin/participants')->group(function(){
-    Route::get('/');
+    Route::get('/', [ParticipantController::class, 'index']);
+    Route::get('/create', [ParticipantController::class, 'create']);
+    Route::post('/', [ParticipantController::class, 'store']);
+    Route::get('/{id}/edit', [ParticipantController::class, 'edit']);
+    Route::put('/{id}', [ParticipantController::class, 'update']);
+    Route::delete('/{id}', [ParticipantController::class, 'destory']);
 });
