@@ -45,11 +45,15 @@ Route::prefix('admin/events')->group(function () {
 });
 
 
-Route::prefix('admin/participants')->group(function(){
+Route::prefix('admin/participants')->group(function () {
     Route::get('/', [ParticipantController::class, 'index']);
+    Route::get('/import', [ParticipantController::class, 'importExcel']);
+    Route::post('/upload-excel-file', [ParticipantController::class, 'storeExcel']);
     Route::get('/create', [ParticipantController::class, 'create']);
     Route::post('/', [ParticipantController::class, 'store']);
     Route::get('/{id}/edit', [ParticipantController::class, 'edit']);
     Route::put('/{id}', [ParticipantController::class, 'update']);
     Route::delete('/{id}', [ParticipantController::class, 'destory']);
 });
+
+Route::get('/admin/participants/{id}/download-pdf', [ParticipantController::class, 'generatePdf']);

@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ParticipantsImport;
 use App\Models\Event;
 use App\Models\Participant;
 use App\Models\ParticipantType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Maatwebsite\Excel\Facades\Excel;
+
+
 
 class ParticipantController extends Controller
 {
-    
+
     public function index()
     {
         $events = Event::all();
@@ -17,7 +22,7 @@ class ParticipantController extends Controller
         return view('pages.backend.participant.index', compact('events', 'participants'));
     }
 
-    
+
     public function create(Request $request)
     {
         $events = Event::all();
@@ -30,7 +35,6 @@ class ParticipantController extends Controller
     {
         $input = $request->only('name', 'affilated_institute', 'post', 'event_id', 'participantType_id');
         $participant = Participant::create($input);
-        $participant->save();
 
         return redirect('/admin/participants')->with('message', 'Participant created Successfully..');
     }
@@ -62,9 +66,48 @@ class ParticipantController extends Controller
 
     public function destory($id)
     {
-        $participant=Participant::findOrFail($id);
+        $participant = Participant::findOrFail($id);
         $participant->delete();
 
         return redirect('/admin/participants')->with('message', 'Participant Deleted Successfully..');
     }
+
+
+    public function importExcel()
+    {
+        $events = Event::all();
+        $participantTypes = ParticipantType::all();
+
+        return view('pages.backend.participant.import', compact('events', 'participantTypes'));
+    }
+
+    public function storeExcel(Request $request)
+    {
+        $eventId = $request->input('event_id');
+        $participantTypeId = $request->input('participantType_id');
+
+        $file = $request->file('excel_file');
+        Excel::import(new ParticipantsImport($eventId, $participantTypeId), $file);
+        return redirect('/admin/participants')->with('message', 'File Uploaded Successfully');
+    }
+
+
+    public function generatePdf(Request $request, $id)
+    {
+        $participant = Participant::findOrFail($id);
+        $participantType = $participant->participantType;
+        $resourcePath = public_path('/assets/backend//images/certificates/' .  $participantType->id . '/');
+    
+        $height = $participantType->template_height;
+        $widht = $participantType->template_width;
+        $customPaper = array(0, 0, $height ?: 667.00, $widht ?: 954.80);
+    
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('certificates.' . $participantType->id . '.index', compact('participant', 'resourcePath'))
+            ->setPaper($customPaper, 'potrait');
+        // ->setPaper('A4', 'portrait');
+        // return $pdf->stream('certificate.pdf');
+        return $pdf->download('certificate.pdf');    
+    }
+    
 }

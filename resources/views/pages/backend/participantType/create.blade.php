@@ -6,16 +6,10 @@
         <div class="card-body">
             <h5 class="card-title">Create participant Type Table
             </h5>
-            <a href="/admin/events/{{$event->id}}/participant-types"> <button type="button" class="btn btn-success">Back
+            <a href="/admin/events/{{ $event->id }}/participant-types"> <button type="button" class="btn btn-success">Back
                 </button> </a>
 
-            {{-- @if ($errors->any())
-                <div class="alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                        <div>{{ $error }}</div>
-                    @endforeach
-                </div>
-            @endif --}}
+            
             <hr>
             <!-- Horizontal Form -->
 
@@ -42,6 +36,51 @@
                             value="{{ old('name') }}">
                     </div>
                     @error('name')
+                        <span class='text-danger'>{{ $message }}</span>
+                    @enderror
+                </div>
+
+
+                <div class="row mb-3">
+                    <label for="url" class="col-sm-2 col-form-label">HTML File<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-10">
+                        <input type="file" name="url" class="form-control" id="url" placeholder="Upload Certificate url"
+                            value="{{ old('url') }}">
+                    </div>
+                    @error('url')
+                        <span class='text-danger'>{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="row mb-3">
+                    <label for="template_files" class="col-sm-2 col-form-label">Template Files</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control" id="template_files" name="template_files[]" multiple
+                            value="{{ old('template_files') }}">
+                    </div>
+                    @error('template_files')
+                        <span class='text-danger'>{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="row mb-3">
+                    <label for="template_height" class="col-sm-2 col-form-label">Template Height</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="template_height" class="form-control" id="template_height"
+                            placeholder="Template Height" value="{{ old('template_height') }}">
+                    </div>
+                    @error('template_height')
+                        <span class='text-danger'>{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="row mb-3">
+                    <label for="template_width" class="col-sm-2 col-form-label">Template Width</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="template_width" class="form-control" id="template_width"
+                            placeholder="Template Width" value="{{ old('template_width') }}">
+                    </div>
+                    @error('template_width')
                         <span class='text-danger'>{{ $message }}</span>
                     @enderror
                 </div>

@@ -10,8 +10,15 @@ class ParticipantType extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 
-        'event_id'
+        'name',
+        'event_id',
+        'url',
+
+        'template_width',
+        'template_height'
     ];
 
+
+
+    
 }

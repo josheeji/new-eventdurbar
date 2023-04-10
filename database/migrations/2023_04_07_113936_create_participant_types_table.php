@@ -14,9 +14,16 @@ return new class extends Migration
         Schema::create('participant_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+
+            $table->string('url');
+
+            $table->float('template_width')->nullable();
+            $table->float('template_height')->nullable();
+
             $table->unsignedBigInteger('event_id');
+
             $table->foreign('event_id')->references('id')->on('events')->onUpdate('cascade')->onDelete('cascade');
-            $table->timestamps();
+            $table->timestamps(); 
 
 
         });

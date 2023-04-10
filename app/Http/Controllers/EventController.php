@@ -43,7 +43,6 @@ class EventController extends Controller
             $input['image'] = $filename;
         }
         $event = Event::create($input);
-        $event->save();
         return redirect('/admin/events')->with('message', 'Event Created Successfullyy..');
     }
 
