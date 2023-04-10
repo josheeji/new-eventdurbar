@@ -33,7 +33,7 @@
             <div class="card-body">
                 <h5 class="card-title">Participant Types Table
                 </h5>
-                
+
 
                 <!-- Default Table -->
                 @if (session('message'))
@@ -44,13 +44,14 @@
                         <h6>Add New Participant Types</h6>
                     </a>
                     <a href="/admin/events/"> <button type="button" class="btn btn-success">Back
-                    </button> </a>
+                        </button> </a>
                     <hr>
                     <table id="myDataTable" class="table table-bordered">
                         <thead>
                             <tr>
                                 <th scope="col" width="10%">S.No.</th>
                                 <th scope="col">Name</th>
+                                <th scope="col">File</th>
                                 <th class="text-center" width="170">Action</th>
 
                             </tr>
@@ -62,11 +63,13 @@
                                 <tr>
                                     <td>{{ $i++ }} </td>
                                     <td>{{ $participantType->name }}</td>
+                                    <td>{{ $participantType->url }}</td>
 
 
                                     <td class="text-center">
 
-                                        <a title="Edit" href="/admin/events/{{ $event->id }}/participant-types/{{$participantType->id}}/edit "
+                                        <a title="Edit"
+                                            href="/admin/events/{{ $event->id }}/participant-types/{{ $participantType->id }}/edit "
                                             class="btn btn-icon btn-circle btn-light"><i class="bi bi-pencil"></i></a>
 
 

@@ -56,12 +56,12 @@
                         <h6>Add New Participants</h6>
                     </a>
 
-                    {{-- <a href="/admin/participants/import" class="btn btn-primary btn-sm">
+                    <a href="/admin/participants/import" class="btn btn-primary btn-sm">
                         <h6>Import file</h6>
-                    </a> --}}
-                    <a href="/admin/participants/export-participant-pdf" class="btn btn-success btn-sm">
-                        <h6>Export Excel</h6>
                     </a>
+                    {{-- <a href="/admin/participants/export-participant-pdf" class="btn btn-success btn-sm">
+                        <h6>Export Excel</h6>
+                    </a> --}}
                     <br><br>
                     <form action="">
                         <div class="row mb-3">
