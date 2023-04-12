@@ -1,4 +1,4 @@
- <!-- Footer -->
+ {{-- <!-- Footer -->
  <footer id="footer" class="footer">
 
      <div class="container-fluid p-20" data-bg-color="#181818">
@@ -9,4 +9,4 @@
              </div>
          </div>
      </div>
- </footer>
+ </footer> --}}

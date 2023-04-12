@@ -1,4 +1,4 @@
-@extends('layouts.frontend.inc.master')
+@extends('layouts.frontend.master')
 
 @section('content')
     <div class="wrapper">
@@ -42,9 +42,9 @@
                                     <tr>
                                         <th scope="col">S.No.</th>
                                         <th scope="col">Full Name</th>
-                                        <th scope="col">Event Name</th>
-                                        <th scope="col">Participant Type</th>
-                                        <th scope="col">Download</th>
+                                        {{-- <th scope="col">Event Name</th> --}}
+                                        <th scope="col" width="30%">Participant Type</th>
+                                        <th scope="col" width="10%">Download</th>
 
                                     </tr>
                                 </thead>
@@ -57,7 +57,7 @@
                                         <tr>
                                             <td>{{ $i++ }}</td>
                                             <td>{{ $participant->name }}</td>
-                                            <td>{{ $participant->event->name }}</td>
+                                            {{-- <td>{{ $participant->event->name }}</td> --}}
                                             <td>{{ $participant->participantType->name }}</td>
 
                                             <td class="text-center">

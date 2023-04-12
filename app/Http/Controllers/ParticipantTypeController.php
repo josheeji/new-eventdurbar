@@ -48,6 +48,8 @@ class ParticipantTypeController extends Controller
         $filename = 'index.blade.php';
         $input['url'] = $filename;
 
+
+
         $participantType = ParticipantType::create($input);
 
         $id = $participantType->id;
@@ -81,37 +83,76 @@ class ParticipantTypeController extends Controller
      */
     public function update(Request $request, $eventid, $participantTypeId)
     {
-        $participantType = ParticipantType::findOrFail($participantTypeId);
+        $participantType = ParticipantType::findOrFail($eventid);
         $participantType->name = $request->name;
         $participantType->event_id = $request->event_id;
         $participantType->template_width = $request->template_width;
         $participantType->template_height = $request->template_height;
 
 
+        $file = $request->file('url');
+        $filename = 'index.blade.php';
+        $input['url'] = $filename;
 
-        if ($request->hasFile('file')) {
-            $destination = '/views/certificates/' . $participantTypeId->file;
-            if (File::exists($destination)) {
-                File::delete($destination);
+        if ($participantType) {
+            // Delete the old file
+            $old_file_path = resource_path('/views/certificates/' . $eventid . '/' . $participantType->url);
+            if (file_exists($old_file_path)) {
+                unlink($old_file_path);
             }
-            $file = $request->file('file');
-            $filename = 'index.blade.php';
-            $file->move(resource_path('/views/certificates/' . $participantTypeId), $filename);
+        }
+        // Move the new file to the appropriate folder
+        $file->move(resource_path('/views/certificates/' . $eventid), $filename);
 
-            $participantType->file = $filename;
+        $participantType = ParticipantType::updateOrCreate(['id' => $eventid], $input);
+
+
+        // Delete the old template files
+        $old_template_files_path = public_path('/assets/backend/images/certificates/' . $eventid);
+        if (file_exists($old_template_files_path)) {
+            $old_template_files = File::allFiles($old_template_files_path);
+            foreach ($old_template_files as $file) {
+                if (in_array($file->getFilename(), $participantType->template_files)) {
+                    unlink($file->getPathname());
+                }
+            }
         }
 
+        // Move the new template files to the appropriate folder
         if ($request->hasFile('template_files')) {
             foreach ($request->file('template_files') as $file) {
-                $destination = '/assets/backend/images/certificates/' . $participantType->template_files;
-                if (File::exists($destination)) {
-                    File::delete($destination);
-                }
                 $filename = $file->getClientOriginalName();
-                $file->move(public_path('/assets/backend/images/certificates/' . $participantTypeId), $filename);
-                $input['template_files'] = $filename;
+                $file->move(public_path('/assets/backend/images/certificates/' . $eventid), $filename);
+                $input['template_files'][] = $filename;
             }
         }
+
+
+
+
+        // if ($request->hasFile('url')) {
+        //     $destination = '/views/certificates/' . $participantTypeId->file;
+        //     if (File::exists($destination)) {
+        //         File::delete($destination);
+        //     }
+        //     $file = $request->file('file');
+        //     $filename = 'index.blade.php';
+        //     $file->move(resource_path('/views/certificates/' . $participantTypeId), $filename);
+
+        //     $participantType->file = $filename;
+        // }
+
+        // if ($request->hasFile('template_files')) {
+        //     foreach ($request->file('template_files') as $file) {
+        //         $destination = '/assets/backend/images/certificates/' . $participantType->template_files;
+        //         if (File::exists($destination)) {
+        //             File::delete($destination);
+        //         }
+        //         $filename = $file->getClientOriginalName();
+        //         $file->move(public_path('/assets/backend/images/certificates/' . $participantTypeId), $filename);
+        //         $input['template_files'] = $filename;
+        //     }
+        // }
         $participantType->update();
         return redirect('admin/events/' . $eventid . '/participant-types');
     }
@@ -119,8 +160,13 @@ class ParticipantTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, $eventid)
+    public function destroy(Request $request, $eventid, $participantTypeId)
     {
-        //
+        $event = Event::findOrFail($eventid);
+        $participantType = ParticipantType::findOrFail($participantTypeId);
+
+        $participantType->delete();
+
+        return redirect('admin/events/' . $eventid . '/participant-types', compact('event'))->with('message', 'Participant Type Deleted Successfully..');
     }
 }

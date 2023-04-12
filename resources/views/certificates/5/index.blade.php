@@ -20,13 +20,13 @@
 
   <body>
     <div class="">
-      <img class="" src="{{$resourcePath}}/template-pdf.png" />
+      <img class="" src="{{$resourcePath}}/Aakriti Pokharel-pdf.png" />
       <h1 style="position: absolute; top: 360px; left: 430px">
         {{ $participant->name }}
       </h1>
       <h1 style="position: absolute; top: 400px; left: 430px">
         {{ $participant->participantType->name }}
-      </h1>
+    </h1>
     </div>
   </body>
 </html>

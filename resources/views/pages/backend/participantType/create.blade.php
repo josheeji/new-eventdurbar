@@ -4,12 +4,12 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Create participant Type Table
+            <h5 class="card-title">Create participant Type
             </h5>
             <a href="/admin/events/{{ $event->id }}/participant-types"> <button type="button" class="btn btn-success">Back
                 </button> </a>
 
-            
+
             <hr>
             <!-- Horizontal Form -->
 
@@ -45,8 +45,8 @@
                     <label for="url" class="col-sm-2 col-form-label">HTML File<span
                             class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <input type="file" name="url" class="form-control" id="url" placeholder="Upload Certificate url"
-                            value="{{ old('url') }}">
+                        <input type="file" name="url" class="form-control" id="url"
+                            placeholder="Upload Certificate url" value="{{ old('url') }}">
                     </div>
                     @error('url')
                         <span class='text-danger'>{{ $message }}</span>

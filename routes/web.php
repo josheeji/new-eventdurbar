@@ -3,6 +3,8 @@
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\ParticipantTypeController;
+use App\Models\Participant;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,9 +22,13 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', function () {
-    return view('layouts.frontend.inc.master');
-});
+// Route::get('/', function () {
+//     return view('layouts.frontend.inc.master');
+// });
+
+Route::get('/', [App\Http\Controllers\Frontend\FrontendController::class, 'index']);
+Route::get('/home', [App\Http\Controllers\Frontend\FrontendController::class, 'index']);
+Route::get('/events/{id}/download/certificates', [App\Http\Controllers\Frontend\FrontendController::class, 'downloadPdf']);
 
 
 Route::prefix('admin/events')->group(function () {
@@ -45,15 +51,47 @@ Route::prefix('admin/events')->group(function () {
 });
 
 
-Route::prefix('admin/participants')->group(function () {
-    Route::get('/', [ParticipantController::class, 'index']);
-    Route::get('/import', [ParticipantController::class, 'importExcel']);
-    Route::post('/upload-excel-file', [ParticipantController::class, 'storeExcel']);
-    Route::get('/create', [ParticipantController::class, 'create']);
-    Route::post('/', [ParticipantController::class, 'store']);
-    Route::get('/{id}/edit', [ParticipantController::class, 'edit']);
-    Route::put('/{id}', [ParticipantController::class, 'update']);
-    Route::delete('/{id}', [ParticipantController::class, 'destory']);
+Route::prefix('admin/events/{event_id}')->group(function () {
+    Route::get('/participants', [ParticipantController::class, 'index']);
+
+    Route::get('/participants/import', [ParticipantController::class, 'importExcel']);
+    Route::post('/participants/upload-excel-file', [ParticipantController::class, 'storeExcel']);
+
+    Route::get('/participants/create', [ParticipantController::class, 'create']);
+    Route::post('/participants', [ParticipantController::class, 'store']);
+    Route::get('/participants/{id}/edit', [ParticipantController::class, 'edit']);
+    Route::put('/participants/{id}', [ParticipantController::class, 'update']);
+    Route::delete('/participants/{id}', [ParticipantController::class, 'destory']);
 });
 
+Route::get('/admin/events/{event_id}/participants/{id}/download-pdf',
+    [ParticipantController::class, 'generatePdf']
+);
+
+
+
+
+
+// Route::prefix('admin/participants')->group(function () {
+//     Route::get('/', [ParticipantController::class, 'index']);
+//     Route::get('/import', [ParticipantController::class, 'importExcel']);
+//     Route::post('/upload-excel-file', [ParticipantController::class, 'storeExcel']);
+//     Route::get('/create', [ParticipantController::class, 'create']);
+//     Route::post('/{id}', [ParticipantController::class, 'store']);
+//     Route::get('/{id}/edit', [ParticipantController::class, 'edit']);
+//     Route::put('/{id}', [ParticipantController::class, 'update']);
+//     Route::delete('/{id}', [ParticipantController::class, 'destory']);
+// });
+
 Route::get('/admin/participants/{id}/download-pdf', [ParticipantController::class, 'generatePdf']);
+
+
+
+
+
+
+
+Route::get('/manage-site', function () {
+    Artisan::call('migrate');
+    Artisan::call('db:seed');
+});

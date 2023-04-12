@@ -27,7 +27,7 @@
 
 
     <!-- bootstrap-icons -->
-    <link href="/backend_assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/backend/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Stylesheet -->
     <link href="https://conferencenepal.com/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -52,7 +52,7 @@
     <link href="https://conferencenepal.com/css/responsive.css" rel="stylesheet" type="text/css">
     <!-- CSS | Style css. This is the file where you can place your own custom css code. Just uncomment it and use it. -->
     {{-- <link href="/assets/css/style.css" rel="stylesheet" type="text/css"> --}}
-    <link href="/backend_assets/css/style.css" rel="stylesheet">
+    <link href="/assets/backend/css/style.css" rel="stylesheet">
 
     {{-- web-fonts --}}
     {{-- <link rel="stylesheet" href="/assets/frontend/fonts/materialdesignicons.min.css"> --}}
@@ -88,7 +88,7 @@
     <div id="wrapper">
 
         <!-- Header -->
-        @include('layouts.frontend.inc.header')
+        @include('layouts.frontend.header')
 
 
     </div>
@@ -97,7 +97,7 @@
 
 
     <!-- Footer -->
-    {{-- @include('layouts.frontend.inc.footer') --}}
+    @include('layouts.frontend.footer')
 
 
     <!-- end wrapper -->

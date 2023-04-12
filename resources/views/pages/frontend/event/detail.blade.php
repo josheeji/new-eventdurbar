@@ -1,4 +1,4 @@
-@extends('layouts.frontend.inc.master')
+@extends('layouts.frontend.master')
 <div class="wrapper">
     <style>
         ul.list li a {

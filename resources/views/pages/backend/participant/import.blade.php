@@ -6,7 +6,7 @@
         <div class="card-body">
             <h5 class="card-title">Upload Excel File
             </h5>
-            <a href="{{ url('/admin/participants') }}"> <button type="button" class="btn btn-success">Back
+            <a href="/admin/events/{{$event->id}}/participants"> <button type="button" class="btn btn-success">Back
                 </button> </a>
 
             {{-- @if ($errors->any())
@@ -22,10 +22,17 @@
             @if (session('message'))
                 <h6 class="alert alert-success">{{ session('message') }} </h6>
             @endif
-            <form class="form-sample" action="/admin/participants/upload-excel-file" method="POST" enctype="multipart/form-data">
+            <form class="form-sample" action="/admin/events/{{$event->id}}/participants/upload-excel-file" method="POST" enctype="multipart/form-data">
                 @csrf
-
+                
                 <div class="row mb-3">
+                    {{-- <label for="Event" class="col-sm-2 col-form-label">Event</label> --}}
+                    <div class="col-sm-10">
+                        <input type="hidden" name="event_id" id="event_id" value="{{ $event->id }}">
+                    </div>
+                </div>
+
+                {{-- <div class="row mb-3">
                     <label for="event_id" class="col-sm-2 col-form-label">Event<span
                             class="text-danger">*</span></label>
                     <div class="col-sm-10">
@@ -40,7 +47,7 @@
                     @error('event_id')
                         <span class='text-danger'>{{ $message }}</span>
                     @enderror
-                </div>
+                </div> --}}
 
                 <div class="row mb-3">
                     <label for="participantType_id" class="col-sm-2 col-form-label">Participant Type<span
