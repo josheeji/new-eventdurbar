@@ -1,4 +1,4 @@
-@extends('layouts.frontend.inc.master')
+@extends('layouts.frontend.master')
 
 @section('content')
     @php
@@ -30,7 +30,7 @@
                             <div class="col-sm-6 col-md-4 col-lg-4">
                                 <div class="schedule-box maxwidth500 mb-30 bg-lighter">
 
-                                    <div class="thumb"> <img src="/backend_assets/images/events/{{ $event->image }}">
+                                    <div class="thumb"> <img src="/assets/backend/images/events/{{ $event->image }}">
                                     </div>
 
                                     <div class="schedule-details clearfix p-15 pt-10">
@@ -41,13 +41,13 @@
                                             <li><i class="fa fa-calendar mr-5"></i>2022-12-04</li>
                                             <li><i class="fa fa-map-marker mr-5"></i>Kathmandu</li>
                                         </ul> --}}
-                                        <p> {{ $event->description }} </p>
+                                        <p> {{ $event->short_description }} </p>
                                         <div class="mt-10">
                                             <a class="btn btn-colored btn-theme-colored btn-sm"
                                                 href="/events/{{ $event->id }}/download/certificates">Download
                                                 Certificate</a>
-                                            <a class="btn btn-colored btn-theme-colored btn-sm"
-                                                href="/events/{{ $event->id }}/detail">Details</a>
+                                            {{-- <a class="btn btn-colored btn-theme-colored btn-sm"
+                                                href="/events/{{ $event->id }}/detail">Details</a> --}}
                                         </div>
                                     </div>
                                 </div>

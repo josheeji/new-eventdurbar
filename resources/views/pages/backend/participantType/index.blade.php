@@ -1,29 +1,28 @@
 @extends('layouts.app')
 @section('content')
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-
-                <form action={{ '/admin/events' }} method="POST" id="delete_form">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Participant Type</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="deleteForm" method="POST">
                     @csrf
-                    @method('delete')
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete Event</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+                    @method('DELETE')
                     <div class="modal-body">
-                        <input type="hidden" name="event_delete_id" id="delete_event_id">
-                        <h5>Are you sure, you want to delete this category ?</h5>
+                        <p>Are you sure you want to delete this participant type?</p>
+                        <input type="hidden" name="participant_type_id" id="participantTypeId" value="">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger">Yes, delete it</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
     <!-- End Delete Modal -->
 
 
@@ -64,19 +63,19 @@
                                     <td>{{ $i++ }} </td>
                                     <td>{{ $participantType->name }}</td>
                                     <td>{{ $participantType->url }}</td>
-
-
                                     <td class="text-center">
 
                                         <a title="Edit"
                                             href="/admin/events/{{ $event->id }}/participant-types/{{ $participantType->id }}/edit "
                                             class="btn btn-icon btn-circle btn-light"><i class="bi bi-pencil"></i></a>
 
-
+                                        {{-- <button title="Delete" type="button"
+                                            class="btn btn-icon btn-danger btn-circle deleteParticipantTypeBtn"
+                                            value="{{ $participantType->id }}"><i class="bi bi-trash-fill"></i></button> --}}
 
                                         <button title="Delete" type="button"
-                                            class="btn btn-icon btn-danger btn-circle delete deleteEventBtn"
-                                            value="{{ $event->id }}"><i class="bi bi-trash-fill"></i></button>
+                                            class="btn btn-icon btn-danger btn-circle delete deleteParticipantTypeBtn"
+                                            data-id="{{ $participantType->id }}"><i class="bi bi-trash-fill"></i></button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -89,4 +88,26 @@
 
         </div>
     </div>
+@endsection
+
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.deleteParticipantTypeBtn').click(function(e) {
+                e.preventDefault();
+
+                // Get the participant type ID and event ID
+                var participantTypeId = $(this).val();
+                var eventId = {{ $event->id }};
+
+                // Set the action of the form to include the participant type ID and event ID
+                $('#delete_form').attr('action', '/admin/events/' + eventId + '/participant-types/' +
+                    participantTypeId);
+
+                // Show the delete modal
+                $('#deleteModal').modal('show');
+            });
+        });
+    </script>
 @endsection

@@ -57,6 +57,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Image</th>
                                 <th scope="col">Short Description</th>
+                                <th scope="col">Associations</th>
                                 <th class="text-center" width="170">Action</th>
 
                             </tr>
@@ -78,9 +79,26 @@
                                     <td>{{ $event->short_description }}</td>
                                     <td class="text-center">
 
-                                      
-                                        <a title="View Participant Types" href="/admin/events/{{ $event->id }}/participant-types"
-                                            class="btn btn-icon btn-circle btn-light"><i class="bi bi-card-checklist"></i></a>
+                                        <a href="/admin/events/{{ $event->id }}/participant-types"
+                                            class="btn btn-primary"> Participant Types</a>
+
+
+                                        <a href='/admin/events/{{ $event->id }}/participants' class="btn btn-primary">
+                                            Participants</a>
+
+                                        {{-- <a title="View Participant Types"
+                                            href="/admin/events/{{ $event->id }}/participant-types"
+                                            class="btn btn-icon btn-circle btn-light"><i
+                                                class="bi bi-card-checklist"></i></a>
+                                                 --}}
+
+
+
+                                        {{-- <a title="View Participant" href="/admin/events/{{ $event->id }}/participants"
+                                            class="btn btn-icon btn-circle btn-light"><i
+                                                class="bi bi-card-checklist"></i></a> --}}
+                                    </td>
+                                    <td>
 
                                         <a title="Edit" href="/admin/events/{{ $event->id }}/edit"
                                             class="btn btn-icon btn-circle btn-light"><i class="bi bi-pencil"></i></a>
