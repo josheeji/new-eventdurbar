@@ -9,18 +9,18 @@ use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
-    public function index(){
+    public function index($eventId){
 
-        $events = Event::all();
-        return view('pages/frontend/home', compact('events'));
+        $event = Event::findOrFail($eventId);
+        return view('pages/frontend/home', compact('event'));
 
     }
 
     public function downloadPdf($id){
-        $events = Event::findOrFail($id);
+        $event = Event::findOrFail($id);
         $participants = Participant::where('event_id', '=', $id)->get();
         
-        return view('pages.frontend.event.index', compact('events', 'participants'));
+        return view('pages.frontend.event.index', compact('event', 'participants'));
 
     }
 }

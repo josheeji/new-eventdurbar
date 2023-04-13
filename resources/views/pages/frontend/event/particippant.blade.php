@@ -31,27 +31,34 @@
                                     <tr role="row">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">S.No.</th>
-                                                <th class="text-center">Full Name</th>
-                                                <th class="text-center">Event Name</th>
-                                                <th class="text-center">Participant Type</th>
-                                                <th class="text-center">Download</th>
+                                                <th scope="col" width="10%">S.No.</th>
+                                                <th scope="col">Name</th>
+
+                                                <th scope="col">Event</th>
+                                                <th scope="col">Participant Type</th>
+                                                <th class="text-center" width="170">Action</th>
 
                                             </tr>
                                         </thead>
-                                    </tr>
-                                </thead>
                                 <tbody>
-                                <tbody>
+                                    @php $i=1 @endphp
+
                                     @foreach ($participants as $participant)
                                         <tr>
-                                            <td>{{ $participant->id }}</td>
+                                            <td>{{ $i++ }} </td>
                                             <td>{{ $participant->name }}</td>
+                                            <td>{{ $participant->affilated_institute }}</td>
+                                            <td>{{ $participant->post }}</td>
+
+
                                             <td>{{ $participant->event->name }}</td>
                                             <td>{{ $participant->participantType->name }}</td>
+
+
                                             <td class="text-center">
+
                                                 <a title="Download PDF"
-                                                    href="/admin/participants/{{ $participant->id }}/download-pdf"
+                                                    href="/admin/events/{{ $event->id }}/participants/{{ $participant->id }}/download-pdf"
                                                     class="btn btn-primary" class="bi bi-arrow-down-circle-fill"><i
                                                         class="bi bi-arrow-down-circle-fill"></i></a>
 
@@ -138,7 +145,3 @@
 
 
 {{-- detail --}}
-
-
-
-

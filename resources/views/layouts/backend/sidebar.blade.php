@@ -28,7 +28,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin/participants">
+            <a class="nav-link collapsed" href="#">
                 <i class="bi bi-file-earmark-person"></i>
                 <span>Participants</span>
             </a>
