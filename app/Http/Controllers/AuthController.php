@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\Facades\Hash as FacadesHash;
+
+use Illuminate\Support\Facades\Session as FacadesSession;
 
 class AuthController extends Controller
 {
@@ -74,7 +76,7 @@ class AuthController extends Controller
 
     public function signOut()
     {
-        FacadeSession::flush();
+        FacadesSession::flush();
         Auth::logout();
 
         return Redirect('admin/login');
