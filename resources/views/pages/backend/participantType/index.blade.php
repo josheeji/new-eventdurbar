@@ -49,7 +49,7 @@
                         <thead>
                             <tr>
                                 <th scope="col" width="10%">S.No.</th>
-                                <th scope="col">Name</th>
+                                <th scope="col">Full Name</th>
                                 <th scope="col">File</th>
                                 <th class="text-center" width="170">Action</th>
 

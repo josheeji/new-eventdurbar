@@ -41,7 +41,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col" width="10%">S.No.</th>
-                                        <th scope="col">Name</th>
+                                        <th scope="col">Full Name</th>
 
                                         <th scope="col">Event</th>
                                         <th scope="col">Participant Type</th>

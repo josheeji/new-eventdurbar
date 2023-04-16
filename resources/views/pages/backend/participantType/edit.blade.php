@@ -53,6 +53,7 @@
                 <div class="row mb-3">
                     <label for="template_files" class="col-sm-2 col-form-label">Template Files</label>
                     <div class="col-sm-10">
+
                         <input type="file" class="form-control" id="template_files" name="template_files[]" multiple
                             value="{{ old('template_files') ?? $participantType->template_files }}">
                     </div>

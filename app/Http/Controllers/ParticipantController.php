@@ -45,7 +45,7 @@ class ParticipantController extends Controller
         return redirect('/admin/events/' . $eventId . '/participants')->with('message', 'Participant created Successfully..');
     }
 
-    public function edit(Request $request, $id, $eventId)
+    public function edit(Request $request, $eventId,  $id)
     {
         $event = Event::findOrFail($eventId);
         $participantTypes = ParticipantType::all();
@@ -54,7 +54,7 @@ class ParticipantController extends Controller
         return view('pages.backend.participant.edit', compact('participant', 'event', 'participantTypes'));
     }
 
-    public function update(Request $request, $id, $eventId)
+    public function update(Request $request, $eventId,  $id)
     {
         $participant = Participant::findOrFail($id);
         $participant->name = $request->name;
@@ -69,7 +69,7 @@ class ParticipantController extends Controller
     }
 
 
-    public function destory($id, $eventId)
+    public function destory($eventId, $id)
     {
         $participant = Participant::findOrFail($id);
         $participant->delete();

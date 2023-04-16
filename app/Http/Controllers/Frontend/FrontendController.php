@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
-    public function index($eventId){
+    public function index(){
 
-        $event = Event::findOrFail($eventId);
-        return view('pages/frontend/home', compact('event'));
+        $events = Event::all();
+        return view('pages/frontend/home', compact('events'));
 
     }
 
