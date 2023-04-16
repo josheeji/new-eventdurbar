@@ -17,10 +17,10 @@ class FrontendController extends Controller
     }
 
     public function downloadPdf($id){
-        $events = Event::findOrFail($id);
+        $event = Event::findOrFail($id);
         $participants = Participant::where('event_id', '=', $id)->get();
         
-        return view('pages.frontend.event.index', compact('events', 'participants'));
+        return view('pages.frontend.event.index', compact('event', 'participants'));
 
     }
 }

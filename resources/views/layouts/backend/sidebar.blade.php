@@ -28,7 +28,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin/participants">
+            <a class="nav-link collapsed" href="#">
                 <i class="bi bi-file-earmark-person"></i>
                 <span>Participants</span>
             </a>
@@ -55,16 +55,16 @@
 
             </ul>
 
-        <li class="nav-item">
-            <form action="/admin/logout" method="post">
-                @csrf
-                <button class="nav-link collapsed" type="submit">
-                    <i class="bi bi-box-arrow-right"></i>
-                    <span>Logout</span>
-                </button>
-            </form>
+            <li class="nav-item">
+                <form action="/admin/logout" method="post">
+                    @csrf
+                    <button class="nav-link collapsed" type="submit">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Logout</span>
+                    </button>
+                </form>
 
-        </li>
+            </li>
         </li>
 
 

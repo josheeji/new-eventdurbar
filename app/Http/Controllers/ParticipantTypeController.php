@@ -83,78 +83,59 @@ class ParticipantTypeController extends Controller
      */
     public function update(Request $request, $eventid, $participantTypeId)
     {
-        $participantType = ParticipantType::findOrFail($eventid);
+        $event = Event::findOrFail($eventid);
+        $participantType = ParticipantType::findOrFail($participantTypeId);
         $participantType->name = $request->name;
         $participantType->event_id = $request->event_id;
         $participantType->template_width = $request->template_width;
         $participantType->template_height = $request->template_height;
 
 
-        $file = $request->file('url');
-        $filename = 'index.blade.php';
-        $input['url'] = $filename;
+        $participantType = ParticipantType::findOrFail($participantTypeId);
 
-        if ($participantType) {
-            // Delete the old file
-            $old_file_path = resource_path('/views/certificates/' . $eventid . '/' . $participantType->url);
-            if (file_exists($old_file_path)) {
-                unlink($old_file_path);
-            }
-        }
-        // Move the new file to the appropriate folder
-        $file->move(resource_path('/views/certificates/' . $eventid), $filename);
+        // handle file updates
+        if ($request->hasFile('template_files')) {
+            $templateFiles = $request->file('template_files');
 
-        $participantType = ParticipantType::updateOrCreate(['id' => $eventid], $input);
-
-
-        // Delete the old template files
-        $old_template_files_path = public_path('/assets/backend/images/certificates/' . $eventid);
-        if (file_exists($old_template_files_path)) {
-            $old_template_files = File::allFiles($old_template_files_path);
-            foreach ($old_template_files as $file) {
-                if (in_array($file->getFilename(), $participantType->template_files)) {
-                    unlink($file->getPathname());
+            // delete the existing files
+            $existingFiles = explode(',', $participantType->template_files);
+            foreach ($existingFiles as $file) {
+                $filePath = public_path('/assets/backend/images/certificates/' . $participantTypeId . '/' . $file);
+                if (file_exists($filePath)) {
+                    unlink($filePath);
                 }
             }
-        }
 
-        // Move the new template files to the appropriate folder
-        if ($request->hasFile('template_files')) {
-            foreach ($request->file('template_files') as $file) {
-                $filename = $file->getClientOriginalName();
-                $file->move(public_path('/assets/backend/images/certificates/' . $eventid), $filename);
-                $input['template_files'][] = $filename;
+            // upload the new files
+            $newFiles = [];
+            foreach ($templateFiles as $file) {
+                $fileName = $file->getClientOriginalName();
+                $file->move(public_path('/assets/backend/images/certificates/' . $participantTypeId), $fileName);
+                $newFiles[] = $fileName;
             }
+
+            // update the database with the new file names
+            $participantType->template_files = implode(',', $newFiles);
         }
 
+        // handle URL file update
+        if ($request->hasFile('url')) {
+            $file = $request->file('url');
+            $fileName = 'index.blade.php';
 
+            // delete the existing file
+            $filePath = resource_path('/views/certificates/' . $participantTypeId . '/' . $participantType->url);
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
 
+            // upload the new file
+            $file->move(resource_path('/views/certificates/' . $participantTypeId), $fileName);
+            $input['url'] = $fileName;
+        }
+        $participantType->update($input);
 
-        // if ($request->hasFile('url')) {
-        //     $destination = '/views/certificates/' . $participantTypeId->file;
-        //     if (File::exists($destination)) {
-        //         File::delete($destination);
-        //     }
-        //     $file = $request->file('file');
-        //     $filename = 'index.blade.php';
-        //     $file->move(resource_path('/views/certificates/' . $participantTypeId), $filename);
-
-        //     $participantType->file = $filename;
-        // }
-
-        // if ($request->hasFile('template_files')) {
-        //     foreach ($request->file('template_files') as $file) {
-        //         $destination = '/assets/backend/images/certificates/' . $participantType->template_files;
-        //         if (File::exists($destination)) {
-        //             File::delete($destination);
-        //         }
-        //         $filename = $file->getClientOriginalName();
-        //         $file->move(public_path('/assets/backend/images/certificates/' . $participantTypeId), $filename);
-        //         $input['template_files'] = $filename;
-        //     }
-        // }
-        $participantType->update();
-        return redirect('admin/events/' . $eventid . '/participant-types');
+        return redirect('admin/events/' . $eventid . '/participant-types')->with('message', 'Participant Type Updated Successfully..');
     }
 
     /**

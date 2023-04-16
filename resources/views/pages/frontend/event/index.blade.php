@@ -23,14 +23,14 @@
                 </div>
             </section>
 
-           
+
             <!-- Section: Past Events -->
 
             {{-- <section style="min-height:500px;"> --}}
 
             <div class="container pb-50 pt-500">
                 <ol>
-                    <h3>{{ $events->name }}</h3>
+                    <h3>{{ $event->name }}</h3>
                 </ol>
 
                 <div class="section-content">
@@ -40,29 +40,30 @@
                                 class="table table-striped table-hover table-hover table-schedule dataTable no-footer">
                                 <thead>
                                     <tr>
-                                        <th scope="col">S.No.</th>
+                                        <th scope="col" width="10%">S.No.</th>
                                         <th scope="col">Full Name</th>
-                                        {{-- <th scope="col">Event Name</th> --}}
-                                        <th scope="col" width="30%">Participant Type</th>
-                                        <th scope="col" width="10%">Download</th>
+
+                                        <th scope="col">Event</th>
+                                        <th scope="col">Participant Type</th>
+                                        <th class="text-center" width="170">Action</th>
 
                                     </tr>
                                 </thead>
-
                                 <tbody>
-
-                                    @php $i = 1 @endphp
+                                    @php $i=1 @endphp
 
                                     @foreach ($participants as $participant)
                                         <tr>
-                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $i++ }} </td>
                                             <td>{{ $participant->name }}</td>
-                                            {{-- <td>{{ $participant->event->name }}</td> --}}
+                                            <td>{{ $participant->event->name }}</td>
                                             <td>{{ $participant->participantType->name }}</td>
 
+
                                             <td class="text-center">
+
                                                 <a title="Download PDF"
-                                                    href="/admin/participants/{{ $participant->id }}/download-pdf"
+                                                    href="/admin/events/{{ $event->id }}/participants/{{ $participant->id }}/download-pdf"
                                                     class="btn btn-primary" class="bi bi-arrow-down-circle-fill"><i
                                                         class="bi bi-arrow-down-circle-fill"></i></a>
 

@@ -22,8 +22,6 @@ class ParticipantController extends Controller
         // $participantType = ParticipantType::where('participantType_id', $request->participantType_id)->get();
 
         // $participants = ParticipantType::where('event_id', '=', 'participantType_id')->get();
-
-        
         $participants = Participant::all();
 
 
@@ -31,11 +29,10 @@ class ParticipantController extends Controller
         return view('pages.backend.participant.index', compact('event', 'participants'));
     }
 
-
     public function create(Request $request, $eventId)
     {
         $event = Event::findOrFail($eventId);
-        $participantTypes = ParticipantType::all();
+        $participantTypes = ParticipantType::where('event_id', '=', $eventId)->get();
 
         return view('pages.backend.participant.create', compact('event', 'participantTypes'));
     }
@@ -48,17 +45,16 @@ class ParticipantController extends Controller
         return redirect('/admin/events/' . $eventId . '/participants')->with('message', 'Participant created Successfully..');
     }
 
-    public function edit(Request $request, $id, $eventId)
+    public function edit(Request $request, $eventId,  $id)
     {
         $event = Event::findOrFail($eventId);
         $participantTypes = ParticipantType::all();
-
 
         $participant = Participant::findOrFail($id);
         return view('pages.backend.participant.edit', compact('participant', 'event', 'participantTypes'));
     }
 
-    public function update(Request $request, $id, $eventId)
+    public function update(Request $request, $eventId,  $id)
     {
         $participant = Participant::findOrFail($id);
         $participant->name = $request->name;
@@ -73,12 +69,12 @@ class ParticipantController extends Controller
     }
 
 
-    public function destory($id)
+    public function destory($eventId, $id)
     {
         $participant = Participant::findOrFail($id);
         $participant->delete();
 
-        return redirect('/admin/participants')->with('message', 'Participant Deleted Successfully..');
+        return redirect('/admin/events/' . $eventId . '/participants')->with('message', 'Participant Deleted Successfully..');
     }
 
 
@@ -105,12 +101,12 @@ class ParticipantController extends Controller
     }
 
 
-    public function generatePdf(Request $request, $eventId, $id)
+    public function generatePdf(Request $request, $eventId, $participantId)
     {
         $event = Event::findOrFail($eventId);
-        
 
-        $participant = Participant::findOrFail($id);
+
+        $participant = Participant::findOrFail($participantId);
         $participantType = $participant->participantType;
         $resourcePath = public_path('/assets/backend/images/certificates/' .  $participantType->id . '/');
 
