@@ -14,4 +14,8 @@ class Event extends Model
         'image',
         'short_description'
     ];
+
+
+
+    
 }
