@@ -6,7 +6,7 @@
         <div class="card-body">
             <h5 class="card-title">Update Events Table
             </h5>
-            <a href="{{ url('/admin/events') }}"> <button type="button" class="btn btn-success">Back
+            <a href="/admin/events/{{ $event->id }}/participant-types"> <button type="button" class="btn btn-success">Back
                 </button> </a>
 
             @if ($errors->any())
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="url" class="col-sm-2 col-form-label">HTML File<span
+                    <label for="url" class="col-sm-2 col-form-label">HTML Index File<span
                             class="text-danger">*</span></label>
                     <div class="col-sm-10">
                         <input type="file" name="url" class="form-control" id="url"

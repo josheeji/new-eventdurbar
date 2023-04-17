@@ -21,8 +21,10 @@ class ParticipantController extends Controller
 
         // $participantType = ParticipantType::where('participantType_id', $request->participantType_id)->get();
 
-        // $participants = ParticipantType::where('event_id', '=', 'participantType_id')->get();
-        $participants = Participant::all();
+        $participants = Participant::where('event_id', '=', $eventId)->get();
+        // $participants = Participant::all();
+        // $participants = $event->participants()->where('event_id', '=', 'eventId')->get();
+
 
 
 
