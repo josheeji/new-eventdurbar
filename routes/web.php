@@ -35,7 +35,7 @@ Route::prefix('admin/')->group(function () {
     Route::post('custom-login', [AuthController::class, 'customLOgin'])->name('login.custom');
     
 
-    Route::get('/registration', [AuthController::class, 'registration'])->name('register-user');
+    Route::get('/register', [AuthController::class, 'registration'])->name('register-user');
     Route::post('/custom-registration', [AuthController::class, 'customRegistration'])->name('register.custom');
 });
 
@@ -45,12 +45,13 @@ Route::post('admin/logout', [AuthController::class, 'signOut'])->name('signout')
 
 
 
+
 Route::get('/', [App\Http\Controllers\Frontend\FrontendController::class, 'index']);
 Route::get('/home', [App\Http\Controllers\Frontend\FrontendController::class, 'index']);
 Route::get('/events/{id}/download/certificates', [App\Http\Controllers\Frontend\FrontendController::class, 'downloadPdf']);
 
 
-Route::prefix('admin/events')->group(function () {
+Route::prefix('admin/events')->middleware('auth')->group(function () {
     Route::get('/', [EventController::class, 'index']);
     Route::get('/create', [EventController::class, 'create']);
     Route::post('/', [EventController::class, 'store']);
@@ -88,42 +89,10 @@ Route::get(
     [ParticipantController::class, 'generatePdf']
 );
 
-
-
-
-
-// Route::prefix('admin/participants')->group(function () {
-//     Route::get('/', [ParticipantController::class, 'index']);
-//     Route::get('/import', [ParticipantController::class, 'importExcel']);
-//     Route::post('/upload-excel-file', [ParticipantController::class, 'storeExcel']);
-//     Route::get('/create', [ParticipantController::class, 'create']);
-//     Route::post('/{id}', [ParticipantController::class, 'store']);
-//     Route::get('/{id}/edit', [ParticipantController::class, 'edit']);
-//     Route::put('/{id}', [ParticipantController::class, 'update']);
-//     Route::delete('/{id}', [ParticipantController::class, 'destory']);
-// });
-
 Route::get('/admin/participants/{id}/download-pdf', [ParticipantController::class, 'generatePdf']);
-
-
-
-
-
-
 
 Route::get('/manage-site', function () {
     Artisan::call('migrate');
     Artisan::call('db:seed');
 });
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

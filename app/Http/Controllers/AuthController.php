@@ -39,7 +39,7 @@ class AuthController extends Controller
 
     public function registration()
     {
-        return view('admin.registration');
+        return view('admin.register');
     }
 
     public function customRegistration(Request $request)
@@ -53,7 +53,7 @@ class AuthController extends Controller
         $data = $request->all();
         $check = $this->create($data);
 
-        return redirect("admin/dashboard")->withSuccess('You have signed-in');
+        return redirect("admin/login")->withSuccess('You have signed-in');
     }
 
     public function create(array $data)
