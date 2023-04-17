@@ -135,6 +135,6 @@ class ParticipantTypeController extends Controller
 
         $participantType->delete();
 
-        return redirect('admin/events/' . $eventid . '/participant-types', compact('event'))->with('message', 'Participant Type Deleted Successfully..');
+        return redirect('admin/events/' . $eventid . '/participant-types')->with('message', 'Participant Type Deleted Successfully..');
     }
 }
