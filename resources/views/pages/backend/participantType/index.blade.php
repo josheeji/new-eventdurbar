@@ -75,15 +75,6 @@
                                             class="btn btn-icon btn-danger btn-circle delete deleteParticipantTypeBtn"
                                             value="{{ $participantType->id }}"><i class="bi bi-trash-fill"></i></button>
 
-                                        {{-- <button title="Delete" type="button"
-                                            class="btn btn-icon btn-danger btn-circle delete deleteParticipantTypeBtn"
-                                            data-id="{{ $participantType->id }}"><i class="bi bi-trash-fill"></i></button> --}}
-
-
-                                        {{-- <button title="Delete" type="button"
-                                            class="btn btn-icon btn-danger btn-circle delete deleteParticipantTypeBtn"
-                                            data-id="{{ $participantType->id }}"><i class="bi bi-trash-fill"></i></button> --}}
-
                                     </td>
                                 </tr>
                             @endforeach
@@ -115,8 +106,7 @@
 
                 // $('#delete_form').attr('action', '/admin/events/' + event_id);
                 $('#delete_form').attr('action', '/admin/events/' + {{ $event->id }} +
-                    '/participant-types/' +
-                    participant_type_id);
+                    '/participant-types/' + participant_type_id);
                 $('#deleteModal').modal('show');
 
 
