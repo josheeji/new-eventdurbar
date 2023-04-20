@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('affilated_institute')->nullable();
             $table->string('post');
             $table->unsignedBigInteger('event_id');
-            $table->unsignedBigInteger('participantType_id')->nullable();
+            $table->unsignedBigInteger('participant_type_id')->nullable();
 
             $table->timestamps();
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');

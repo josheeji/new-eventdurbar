@@ -251,3 +251,46 @@
     </div>
 </body>
 </html>
+
+
+{{-- saving static map --}}
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class MapController extends Controller
+{
+    public function show($id)
+    {
+        $map = Map::findOrFail($id);
+        $imagePath = public_path($map->image_path);
+        // Render the view with the map data and image path
+    }
+
+    public function store(Request $request)
+    {
+        // Validate the request input
+        $request->validate([
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'zoom' => 'required|numeric',
+        ]);
+
+        // Generate and save the static map image
+        $lat = $request->input('latitude');
+        $lng = $request->input('longitude');
+        $zoom = $request->input('zoom');
+        $url = "https://maps.googleapis.com/maps/api/staticmap?center={$lat},{$lng}&zoom={$zoom}&size=640x640&scale=2&maptype=roadmap&key=YOUR_API_KEY";
+        $imageData = file_get_contents($url);
+        $imagePath = 'maps/' . uniqid() . '.png'; // Unique filename
+        file_put_contents(public_path($imagePath), $imageData);
+
+        // Save the map data and image path to the database
+        
+
+        // Redirect to the map view with a success message
+        return redirect()->route('maps.show', $map->id)->with('success', 'Map created successfully.');
+    }
+}

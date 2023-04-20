@@ -9,13 +9,13 @@
             <a href="{{ url('/admin/events') }}"> <button type="button" class="btn btn-success">Back
                 </button> </a>
 
-            @if ($errors->any())
+            {{-- @if ($errors->any())
                 <div class="alert alert-danger">
                     @foreach ($errors->all() as $error)
                         <div>{{ $error }}</div>
                     @endforeach
                 </div>
-            @endif
+            @endif --}}
             <hr>
             <!-- Horizontal Form -->
 
@@ -42,8 +42,8 @@
                     <div class="col-sm-10">
                         <input type="file" name="image" class="form-control" id="image" placeholder="Upload Image"
                             value="{{ old('image') ?? $event->image }}">
-                        <img src="/assets/backend/images/events/{{ $event->image }}" width="80px" height="80px">
-                    </div>
+                            <img src="{{ asset($event->image) }}" alt="Image" width="70px" height="70px">
+                        </div>
                     @error('image')
                         <span class='text-danger'>{{ $message }}</span>
                     @enderror

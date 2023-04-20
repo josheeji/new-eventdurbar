@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EventCreateRequest;
+use App\Http\Requests\EventUpdateRequest;
 use App\Models\Event;
 use Illuminate\Support\Facades\File;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -29,19 +32,13 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(EventCreateRequest $request)
     {
-        $input = $request->only(
-            'name',
-            'short_description'
-        );
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move(public_path('/assets/backend/images/events'), $filename);
-            $input['image'] = $filename;
-        }
+        $input = $request->all();
+        $filename = microtime() . $request->file('image')->getClientOriginalName();
+        $path = $request->file('image')->storeAs('images/events', $filename, 'public');
+        $input['image'] = '/storage/' . $path;
+
         $event = Event::create($input);
         return redirect('/admin/events')->with('message', 'Event Created Successfullyy..');
     }
@@ -56,25 +53,46 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(EventUpdateRequest $request, $id)
     {
-        $event = Event::findOrFail($id);
-
-        $event->name = $request->name;
-        $event->short_description = $request->short_description;
+        $input = $request->all();
 
         if ($request->hasFile('image')) {
-            $destination = '/assets/backend/images/events/' . $event->image;
-            if (File::exists($destination)) {
-                File::delete($destination);
+            $filename = microtime() . $request->file('image')->getClientOriginalName();
+            $existing_path = $input['image'];
+            if (Storage::disk('public')->exists($existing_path)) {
+                Storage::disk('public')->delete($existing_path);
             }
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move(public_path('/assets/backend/images/events'), $filename);
-            $event->image = $filename;
+            $path = $request->file('image')->storeAs('images/events', $filename, 'public');
+            $input['image'] = '/storage/events/' . $path;
         }
-        $event->update();
+
+        $event = Event::findOrFail($request->id);
+        $event->update($input);
+
+
+        // $event = Event::findOrFail($id);
+
+        // $event->name = $request->name;
+        // $event->short_description = $request->short_description;
+
+
+
+
+
+
+        // if ($request->hasFile('image')) {
+        //     $destination = '/assets/backend/images/events/' . $event->image;
+        //     if (File::exists($destination)) {
+        //         File::delete($destination);
+        //     }
+        //     $file = $request->file('image');
+        //     $extension = $file->getClientOriginalExtension();
+        //     $filename = time() . '.' . $extension;
+        //     $file->move(public_path('/assets/backend/images/events'), $filename);
+        //     $event->image = $filename;
+        // }
+        // $event->update();
 
         return redirect('/admin/events')->with('meaasge', 'Event Updated Successfully..');
     }

@@ -19,7 +19,7 @@ class ParticipantController extends Controller
     {
         $event = Event::findOrFail($eventId);
 
-        // $participantType = ParticipantType::where('participantType_id', $request->participantType_id)->get();
+        // $participantType = ParticipantType::where('participant_type_id', $request->participant_type_id)->get();
 
         $participants = Participant::where('event_id', '=', $eventId)->get();
         // $participants = Participant::all();
@@ -41,7 +41,7 @@ class ParticipantController extends Controller
 
     public function store(Request $request, $eventId)
     {
-        $input = $request->only('name', 'affilated_institute', 'post', 'event_id', 'participantType_id');
+        $input = $request->only('name', 'affilated_institute', 'post', 'event_id', 'participant_type_id');
         $participant = Participant::create($input);
 
         return redirect('/admin/events/' . $eventId . '/participants')->with('message', 'Participant created Successfully..');
@@ -63,7 +63,7 @@ class ParticipantController extends Controller
         $participant->affilated_institute = $request->affilated_institute;
         $participant->post = $request->post;
         $participant->event_id = $request->event_id;
-        $participant->participantType_id = $request->participantType_id;
+        $participant->participant_type_id = $request->participant_type_id;
 
         $participant->update();
 
@@ -83,7 +83,7 @@ class ParticipantController extends Controller
     public function importExcel($eventId)
     {
         $event = Event::findOrFail($eventId);
-        // $participantTypes = ParticipantType::where('event_id', '=', 'participantType_id');
+        // $participantTypes = ParticipantType::where('event_id', '=', 'participant_type_id');
         $participantTypes = ParticipantType::where('event_id', '=', $eventId)->get();
 
 
@@ -95,7 +95,7 @@ class ParticipantController extends Controller
         $event = Event::findOrFail($eventId);
 
         // $eventId = $request->input('event_id');
-        $participantTypeId = $request->input('participantType_id');
+        $participantTypeId = $request->input('participant_type_id');
 
         $file = $request->file('excel_file');
         Excel::import(new ParticipantsImport($eventId, $participantTypeId), $file);

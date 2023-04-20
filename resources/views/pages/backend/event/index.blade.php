@@ -71,8 +71,7 @@
                                     <td>{{ $event->name }}</td>
 
                                     <td>
-                                        <img src="/assets/backend/images/events//{{ $event->image }}" width="70px"
-                                            height="70px">
+                                        <img src="{{ asset($event->image) }}" alt="Image" width="70px" height="70px">
 
                                     </td>
 
