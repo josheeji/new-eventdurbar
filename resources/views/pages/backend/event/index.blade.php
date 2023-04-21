@@ -17,7 +17,7 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="event_delete_id" id="delete_event_id">
-                        <h5>Are you sure, you want to delete this category ?</h5>
+                        <h5>Are you sure, you want to delete this Event ?</h5>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>

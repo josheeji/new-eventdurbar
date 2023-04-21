@@ -37,33 +37,42 @@ class ParticipantTypeController extends Controller
      */
     public function store(Request $request, $eventid)
     {
+
         $input = $request->only(
             'name',
             'event_id',
             'template_width',
-            'template_height'
+            'template_height',
+            'url'
         );
-
-        $file = $request->file('url');
-        $filename = 'index.blade.php';
-        $input['url'] = $filename;
-
 
 
         $participantType = ParticipantType::create($input);
 
         $id = $participantType->id;
-        // dd($id);
 
-        $file->move(resource_path('/views/certificates/' . $id), $filename);
+
+        $filename = microtime() . $request->file('url')->getClientOriginalExtension();
+        $path = $request->file('url')->storeAs('images/certificates/' . $id, $filename);
+        $input['url'] = '/storage/' . $path;
+
+
+
 
         if ($request->hasFile('template_files')) {
             foreach ($request->file('template_files') as $file) {
-                $filename = $file->getClientOriginalName();
-                $file->move(public_path('/assets/backend/images/certificates/' . $id), $filename);
-                $input['template_files'] = $filename;
+                $filename = microtime() . $request->file('url')->getClientOriginalName();
+                $path = $request->file('url')->storeAs('images/certificates/templates' . $id, $filename);
+                $input['file'] = '/storage/' . $path;
+
+                // foreach ($request->file('template_files') as $file) {
+                // $filename = $file->getClientOriginalName();
+                // $file->move(public_path('/assets/backend/images/certificates/' . $id), $filename);
+                // $input['template_files'] = $filename;
             }
         }
+
+
         return redirect('admin/events/' . $eventid . '/participant-types')->with('message', 'Participant Type Created Successfully..');
     }
 

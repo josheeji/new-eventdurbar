@@ -64,7 +64,7 @@ class EventController extends Controller
                 Storage::disk('public')->delete($existing_path);
             }
             $path = $request->file('image')->storeAs('images/events', $filename, 'public');
-            $input['image'] = '/storage/events/' . $path;
+            $input['image'] = '/storage/' . $path;
         }
 
         $event = Event::findOrFail($request->id);
@@ -75,11 +75,6 @@ class EventController extends Controller
 
         // $event->name = $request->name;
         // $event->short_description = $request->short_description;
-
-
-
-
-
 
         // if ($request->hasFile('image')) {
         //     $destination = '/assets/backend/images/events/' . $event->image;

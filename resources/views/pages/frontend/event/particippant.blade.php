@@ -293,4 +293,34 @@ class MapController extends Controller
         // Redirect to the map view with a success message
         return redirect()->route('maps.show', $map->id)->with('success', 'Map created successfully.');
     }
+
+
+    // participant type
+
+    $input = $request->only(
+            'name',
+            'event_id',
+            'template_width',
+            'template_height'
+        );
+
+        $file = $request->file('url');
+        $filename = 'index.blade.php';
+        $input['url'] = $filename;
+
+
+
+        $participantType = ParticipantType::create($input);
+
+        $id = $participantType->id;
+
+        $file->move(resource_path('/views/certificates/' . $id), $filename);
+
+        if ($request->hasFile('template_files')) {
+            foreach ($request->file('template_files') as $file) {
+                $filename = $file->getClientOriginalName();
+                $file->move(public_path('/assets/backend/images/certificates/' . $id), $filename);
+                $input['template_files'] = $filename;
+            }
+        }
 }

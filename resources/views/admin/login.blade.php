@@ -24,56 +24,59 @@
 
                             <form method="POST" action="{{ route('login.custom') }}">
                                 @csrf
-                                <div class="col-12 mb-2">
-                                    <label for="email" class="form-label">Username</label>
-                                    <div class="input-group has-validation">
-                                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                        <input type="text" name="email" class="form-control" id="email"
-                                            required="">
-                                        <div class="invalid-feedback">Please enter your username.</div>
+                                <div class="row justify-content-center">
 
-                                        @if ($errors->has('email'))
-                                            <span class="text-danger">{{ $errors->first('email') }}</span>
-                                        @endif
-                                    </div>
 
-                                    <br>
+                                    <div class="col-12 mb-2">
+                                        <label for="email" class="form-label">Username</label>
+                                        <div class="input-group has-validation">
+                                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                            <input type="text" name="email" class="form-control" id="email"
+                                                required="">
+                                            <div class="invalid-feedback">Please enter your username.</div>
 
-                                    <div class="col-12 mb-3">
-                                        <label for="password" class="form-label">Password</label>
-                                        <input type="password" name="password" class="form-control" id="yourPassword"
-                                            required="">
-                                        <div class="invalid-feedback">Please enter your password!</div>
-                                        @if ($errors->has('password'))
-                                            <span class="text-danger">{{ $errors->first('password') }}</span>
-                                        @endif
-                                    </div>
+                                            @if ($errors->has('email'))
+                                                <span class="text-danger">{{ $errors->first('email') }}</span>
+                                            @endif
+                                        </div>
 
-                                    {{-- <div class="col-12">
+                                        <br>
+
+                                        <div class="col-12 mb-3">
+                                            <label for="password" class="form-label">Password</label>
+                                            <input type="password" name="password" class="form-control"
+                                                id="yourPassword" required="">
+                                            <div class="invalid-feedback">Please enter your password!</div>
+                                            @if ($errors->has('password'))
+                                                <span class="text-danger">{{ $errors->first('password') }}</span>
+                                            @endif
+                                        </div>
+
+                                        {{-- <div class="col-12">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="remember" value="true"
                                             id="rememberMe">
                                         <label class="form-check-label" for="rememberMe">Remember me</label>
                                     </div>
                                 </div> --}}
-                                   
-                                    <div class="col-12 mb-3"  >
-                                        <button class="btn btn-primary w-100" type="submit">Login</button>
-                                    </div>
-                                    <div class="col-12">
 
-                                        <a title="Edit" href="/admin/register"
-                                            class="btn btn-primary w-100">Register</a>
+                                        <div class="col-12 mb-3">
+                                            <button class="btn btn-primary w-100" type="submit">Login</button>
+                                        </div>
+                                        <div class="col-12">
+
+                                            <a title="Edit" href="/admin/register"
+                                                class="btn btn-primary w-100">Register</a>
 
 
-                                    </div>
-                                    {{-- <div class="col-12">
+                                        </div>
+                                        {{-- <div class="col-12">
                                     <p class="small mb-0">Don't have account? <a href="pages-register.html">Create
                                             an account</a></p>
                                 </div> --}}
 
+                                    </div>
                                 </div>
-
 
                             </form>
 

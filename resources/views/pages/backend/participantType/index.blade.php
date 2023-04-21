@@ -64,7 +64,7 @@
                                 <tr>
                                     <td>{{ $i++ }} </td>
                                     <td>{{ $participantType->name }}</td>
-                                    <td>{{ $participantType->url }}</td>
+                                    <td>{{ asset($participantType->url) }}</td>
                                     <td class="text-center">
 
                                         <a title="Edit"

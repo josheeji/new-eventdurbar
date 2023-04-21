@@ -32,7 +32,7 @@
                     <label for="name" class="col-sm-2 col-form-label">Participant Type Name<span
                             class="text-danger">*</span></label>
                     <div class="col-sm-8">
-                        <input type="text" name="name" class="form-control" id="name" placeholder="Event Name"
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Participant Type Name"
                             value="{{ old('name') }}">
                     </div>
                     @error('name')
