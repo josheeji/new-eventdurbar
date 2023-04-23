@@ -52,7 +52,7 @@
                             <tr>
                                 <th scope="col" width="10%">S.No.</th>
                                 <th scope="col">Full Name</th>
-                                <th scope="col">File</th>
+                                <th scope="col" width="55%">File</th>
                                 <th class="text-center" width="170">Action</th>
 
                             </tr>
@@ -64,7 +64,7 @@
                                 <tr>
                                     <td>{{ $i++ }} </td>
                                     <td>{{ $participantType->name }}</td>
-                                    <td>{{ asset($participantType->url) }}</td>
+                                    <td>{{ ($participantType->url) }}</td>
                                     <td class="text-center">
 
                                         <a title="Edit"

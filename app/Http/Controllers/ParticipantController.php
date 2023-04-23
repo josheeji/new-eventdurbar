@@ -105,19 +105,40 @@ class ParticipantController extends Controller
 
     public function generatePdf(Request $request, $eventId, $participantId)
     {
+        // $event = Event::findOrFail($eventId);
+
+
+        // $participant = Participant::findOrFail($participantId);
+        // $participantType = $participant->participantType;
+        // $resourcePath = public_path('/assets/backend/images/certificates/' .  $participantType->id . '/');
+
+        // $height = $participantType->template_height;
+        // $widht = $participantType->template_width;
+        // $customPaper = array(0, 0, $height ?: 667.00, $widht ?: 954.80);
+
+        // $pdf = App::make('dompdf.wrapper');
+        // $pdf->loadView('certificates.' . $participantType->id . '.index', compact('participant', 'resourcePath'))
+        //     ->setPaper($customPaper, 'potrait');
+        // // ->setPaper('A5', 'patroit');
+        // // return $pdf->stream('certificate.pdf');
+        // return $pdf->download('certificate.pdf');
+
+
+
+
         $event = Event::findOrFail($eventId);
 
 
         $participant = Participant::findOrFail($participantId);
         $participantType = $participant->participantType;
-        $resourcePath = public_path('/assets/backend/images/certificates/' .  $participantType->id . '/');
+        $storagepath = storage_path('/app/public/certificates/' .  $participantType->id . '/');
 
         $height = $participantType->template_height;
         $widht = $participantType->template_width;
         $customPaper = array(0, 0, $height ?: 667.00, $widht ?: 954.80);
 
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('certificates.' . $participantType->id . '.index', compact('participant', 'resourcePath'))
+        $pdf->loadView('certificates.' . $participantType->id . '.index', compact('participant', 'storagepath'))
             ->setPaper($customPaper, 'potrait');
         // ->setPaper('A5', 'patroit');
         // return $pdf->stream('certificate.pdf');

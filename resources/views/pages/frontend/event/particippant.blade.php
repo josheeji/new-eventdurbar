@@ -292,7 +292,8 @@ class MapController extends Controller
 
         // Redirect to the map view with a success message
         return redirect()->route('maps.show', $map->id)->with('success', 'Map created successfully.');
-    }
+    };
+
 
 
     // participant type
@@ -323,4 +324,26 @@ class MapController extends Controller
                 $input['template_files'] = $filename;
             }
         }
+        return redirect('admin/events/' . $eventid . '/participant-types')->with('message', 'Participant Type Created Successfully..');
+
+
+        // event
+
+        // $event = Event::findOrFail($id);
+
+        // $event->name = $request->name;
+        // $event->short_description = $request->short_description;
+
+        // if ($request->hasFile('image')) {
+        //     $destination = '/assets/backend/images/events/' . $event->image;
+        //     if (File::exists($destination)) {
+        //         File::delete($destination);
+        //     }
+        //     $file = $request->file('image');
+        //     $extension = $file->getClientOriginalExtension();
+        //     $filename = time() . '.' . $extension;
+        //     $file->move(public_path('/assets/backend/images/events'), $filename);
+        //     $event->image = $filename;
+        // }
+        // $event->update();
 }

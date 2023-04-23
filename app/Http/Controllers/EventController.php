@@ -35,10 +35,9 @@ class EventController extends Controller
     public function store(EventCreateRequest $request)
     {
         $input = $request->all();
-        $filename = microtime() . $request->file('image')->getClientOriginalName();
-        $path = $request->file('image')->storeAs('images/events', $filename, 'public');
+        $filename = microtime() . '.' . $request->file('image')->getClientOriginalExtension();
+        $path = $request->file('image')->storeAs('events', $filename, 'public');
         $input['image'] = '/storage/' . $path;
-
         $event = Event::create($input);
         return redirect('/admin/events')->with('message', 'Event Created Successfullyy..');
     }
@@ -55,22 +54,20 @@ class EventController extends Controller
      */
     public function update(EventUpdateRequest $request, $id)
     {
+        // Get the event to be updated
+        $event = Event::findOrFail($id);
+
+        // Update the event with the new input data
         $input = $request->all();
 
         if ($request->hasFile('image')) {
-            $filename = microtime() . $request->file('image')->getClientOriginalName();
-            $existing_path = $input['image'];
-            if (Storage::disk('public')->exists($existing_path)) {
-                Storage::disk('public')->delete($existing_path);
-            }
-            $path = $request->file('image')->storeAs('images/events', $filename, 'public');
-            $input['image'] = '/storage/' . $path;
+            $filename = microtime() . '.' . $request->file('image')->getClientOriginalExtension();
+            $path = $request->file('image')->storeAs('public/events', $filename);
+            $input['image'] = '/storage/events/' . $filename;
         }
 
-        $event = Event::findOrFail($request->id);
         $event->update($input);
-
-
+ 
         // $event = Event::findOrFail($id);
 
         // $event->name = $request->name;
