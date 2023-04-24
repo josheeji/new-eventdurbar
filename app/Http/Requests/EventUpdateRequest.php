@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Event;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EventUpdateRequest extends FormRequest
 {
@@ -21,12 +23,41 @@ class EventUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        if ($this->getMethod() == "PUT") {
+            $rules = [
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // add any additional validation rules for the image field
 
-            'name' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'short_description' => 'nullable|string|max:255',
+                'name' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    Rule::unique('events')->ignore($this->id),
+                ],
+            ];
+        }
 
-        ];
+
+        return $rules;
+
+        // return [
+        //     'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // add any additional validation rules for the image field
+
+        //     'name' => [
+        //         'required',
+        //         'string',
+        //         'max:255',
+        //         Rule::unique('events')->ignore($this->event),
+        //     ],
+        // ];
     }
+
+
+
+
+    //     return [
+
+    //         'name' => 'required|string|max:255',
+    //         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         'short_description' => 'nullable|string|max:255',
+
 }

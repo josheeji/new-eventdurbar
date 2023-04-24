@@ -11,7 +11,7 @@ class ParticipantUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class ParticipantUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'affiliated_institute' => 'required|string|max:255',
+            'post' => 'required|string|max:255',
+            'event_id' => 'required|numeric',
+            'participant_type_id' => 'required|numeric'
         ];
     }
 }

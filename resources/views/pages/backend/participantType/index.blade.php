@@ -13,7 +13,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" name="participantType_delete_id" id="delete_participantType_id">
+                        <input type="hidden" name="participant_type_id_delete_id" id="delete_participant_type_id">
                         <h5>Are you sure, you want to delete this Participant Type ?</h5>
                     </div>
                     <div class="modal-footer">
@@ -51,7 +51,7 @@
                         <thead>
                             <tr>
                                 <th scope="col" width="10%">S.No.</th>
-                                <th scope="col">Full Name</th>
+                                <th scope="col">Participant Type</th>
                                 <th scope="col" width="55%">File</th>
                                 <th class="text-center" width="170">Action</th>
 

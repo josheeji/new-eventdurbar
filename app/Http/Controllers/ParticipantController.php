@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EventUpdateRequest;
+use App\Http\Requests\ParticipantCreateRequest;
 use App\Imports\ParticipantsImport;
 use App\Models\Event;
 use App\Models\Participant;
@@ -19,19 +21,17 @@ class ParticipantController extends Controller
     {
         $event = Event::findOrFail($eventId);
 
-        // $participantType = ParticipantType::where('participantType_id', $request->participantType_id)->get();
+        // $participantType = ParticipantType::where('participant_type_id', $request->participant_type_id)->get();
 
         $participants = Participant::where('event_id', '=', $eventId)->get();
         // $participants = Participant::all();
         // $participants = $event->participants()->where('event_id', '=', 'eventId')->get();
 
 
-
-
         return view('pages.backend.participant.index', compact('event', 'participants'));
     }
 
-    public function create(Request $request, $eventId)
+    public function create($eventId)
     {
         $event = Event::findOrFail($eventId);
         $participantTypes = ParticipantType::where('event_id', '=', $eventId)->get();
@@ -39,10 +39,11 @@ class ParticipantController extends Controller
         return view('pages.backend.participant.create', compact('event', 'participantTypes'));
     }
 
-    public function store(Request $request, $eventId)
+    public function store(ParticipantCreateRequest $request, $eventId)
     {
-        $input = $request->only('name', 'affilated_institute', 'post', 'event_id', 'participantType_id');
+        $input = $request->only('name', 'affilated_institute', 'post', 'event_id', 'participant_type_id');
         $participant = Participant::create($input);
+        // dd($participant);
 
         return redirect('/admin/events/' . $eventId . '/participants')->with('message', 'Participant created Successfully..');
     }
@@ -56,14 +57,14 @@ class ParticipantController extends Controller
         return view('pages.backend.participant.edit', compact('participant', 'event', 'participantTypes'));
     }
 
-    public function update(Request $request, $eventId,  $id)
+    public function update(EventUpdateRequest $request, $eventId,  $id)
     {
         $participant = Participant::findOrFail($id);
         $participant->name = $request->name;
         $participant->affilated_institute = $request->affilated_institute;
         $participant->post = $request->post;
         $participant->event_id = $request->event_id;
-        $participant->participantType_id = $request->participantType_id;
+        $participant->participant_type_id = $request->participant_type_id;
 
         $participant->update();
 
@@ -83,19 +84,18 @@ class ParticipantController extends Controller
     public function importExcel($eventId)
     {
         $event = Event::findOrFail($eventId);
-        // $participantTypes = ParticipantType::where('event_id', '=', 'participantType_id');
+        // $participantTypes = ParticipantType::where('event_id', '=', 'participant_type_id');
         $participantTypes = ParticipantType::where('event_id', '=', $eventId)->get();
 
 
         return view('pages.backend.participant.import', compact('event', 'participantTypes'));
     }
 
-    public function storeExcel(Request $request, $eventId)
+    public function storeExcel(ParticipantCreateRequest $request, $eventId)
     {
         $event = Event::findOrFail($eventId);
 
-        // $eventId = $request->input('event_id');
-        $participantTypeId = $request->input('participantType_id');
+        $participantTypeId = $request->input('participant_type_id');
 
         $file = $request->file('excel_file');
         Excel::import(new ParticipantsImport($eventId, $participantTypeId), $file);
@@ -105,40 +105,19 @@ class ParticipantController extends Controller
 
     public function generatePdf(Request $request, $eventId, $participantId)
     {
-        // $event = Event::findOrFail($eventId);
-
-
-        // $participant = Participant::findOrFail($participantId);
-        // $participantType = $participant->participantType;
-        // $resourcePath = public_path('/assets/backend/images/certificates/' .  $participantType->id . '/');
-
-        // $height = $participantType->template_height;
-        // $widht = $participantType->template_width;
-        // $customPaper = array(0, 0, $height ?: 667.00, $widht ?: 954.80);
-
-        // $pdf = App::make('dompdf.wrapper');
-        // $pdf->loadView('certificates.' . $participantType->id . '.index', compact('participant', 'resourcePath'))
-        //     ->setPaper($customPaper, 'potrait');
-        // // ->setPaper('A5', 'patroit');
-        // // return $pdf->stream('certificate.pdf');
-        // return $pdf->download('certificate.pdf');
-
-
-
-
         $event = Event::findOrFail($eventId);
 
 
         $participant = Participant::findOrFail($participantId);
         $participantType = $participant->participantType;
-        $storagepath = storage_path('/app/public/certificates/' .  $participantType->id . '/');
+        $resourcePath = public_path('/assets/backend/images/certificates/' .  $participantType->id . '/');
 
         $height = $participantType->template_height;
         $widht = $participantType->template_width;
         $customPaper = array(0, 0, $height ?: 667.00, $widht ?: 954.80);
 
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('certificates.' . $participantType->id . '.index', compact('participant', 'storagepath'))
+        $pdf->loadView('certificates.' . $participantType->id . '.index', compact('participant', 'resourcePath'))
             ->setPaper($customPaper, 'potrait');
         // ->setPaper('A5', 'patroit');
         // return $pdf->stream('certificate.pdf');

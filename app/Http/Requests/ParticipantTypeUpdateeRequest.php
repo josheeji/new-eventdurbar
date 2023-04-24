@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\ParticipantType;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class ParticipantCreateRequest extends FormRequest
+class ParticipantTypeUpdateeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,14 +23,19 @@ class ParticipantCreateRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
-            'name' => 'required|string|max:255',
-            'affiliated_institute' => 'nullable|string|max:255',
-            'post' => 'nullable|string|max:255',
+
             'event_id' => 'required|numeric',
-            'participant_type_id' => 'required|numeric'
+            'url' => 'required|file',
+            'template_width' => 'nullable|numeric',
+            'template_height' => 'nullable|numeric',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('participant_types')->ignore($this->id),
+            ],
         ];
     }
-    // 'name' => 'required|string|max:255|unique:participants,name',
-
 }

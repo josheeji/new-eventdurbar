@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Update Events')
+@section('title', 'Update Participant Type')
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Update Events Table
+            <h5 class="card-title">Update Participant Type Table
             </h5>
             <a href="/admin/events/{{ $event->id }}/participant-types"> <button type="button" class="btn btn-success">Back
                 </button> </a>
@@ -27,11 +27,19 @@
                 @csrf
                 @method('put')
                 <div class="row mb-3">
-                    <label for="name" class="col-sm-2 col-form-label">Event Name<span
-                            class="text-danger">*</span></label>
+                    {{-- <label for="Event" class="col-sm-2 col-form-label">Event</label> --}}
                     <div class="col-sm-10">
-                        <input type="text" name="name" class="form-control" id="name" placeholder="Event Name"
-                            value="{{ old('name') ?? $participantType->name }}">
+                        <input type="hidden" name="event_id" id="event_id" value="{{ $event->id }}">
+                    </div>
+                </div>
+
+
+                <div class="row mb-3">
+                    <label for="name" class="col-sm-2 col-form-label">Participant Type Name<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" name="name" class="form-control" id="name"
+                            placeholder="Participant Type Name" value="{{ old('name') ?? $participantType->name }}">
                     </div>
                     @error('name')
                         <span class='text-danger'>{{ $message }}</span>

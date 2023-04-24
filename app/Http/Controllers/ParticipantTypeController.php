@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ParticipantTypeCreateRequest;
+use App\Http\Requests\ParticipantTypeUpdateeRequest;
 use App\Models\Event;
 use App\Models\ParticipantType;
 use Illuminate\Http\Request;
@@ -35,7 +37,7 @@ class ParticipantTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, $eventid)
+    public function store(ParticipantTypeCreateRequest $request, $eventid)
     {
         // // $input = $request->all();
 
@@ -54,33 +56,6 @@ class ParticipantTypeController extends Controller
 
 
 
-        // $input = $request->only(
-        //     'name',
-        //     'event_id',
-        //     'template_width',
-        //     'template_height'
-        // );
-
-        // $file = $request->file('url');
-        // $filename = 'index.blade.php';
-        // $input['url'] = $filename;
-
-
-        // $participantType = ParticipantType::create($input);
-
-        // $id = $participantType->id;
-
-        // $file->move(resource_path('/views/certificates/' . $id), $filename);
-
-        // if ($request->hasFile('template_files')) {
-        //     foreach ($request->file('template_files') as $file) {
-        //         $filename = $file->getClientOriginalName();
-        //         $file->move(public_path('/assets/backend/images/certificates/' . $id), $filename);
-        //         $input['template_files'] = $filename;
-        //     }
-        // }
-        // return redirect('admin/events/' . $eventid . '/participant-types')->with('message', 'Participant Type Created Successfully..');
-
         $input = $request->only(
             'name',
             'event_id',
@@ -88,25 +63,26 @@ class ParticipantTypeController extends Controller
             'template_height'
         );
 
-        if ($request->hasFile('url')) {
-            $file = $request->file('url');
-            $filename = 'index.blade.php';
-            // $path = $file->storeAs('public/certificates', $filename);
-            $input['url'] = $filename;
-        }
+        $file = $request->file('url');
+        $filename = 'index.blade.php';
+        $input['url'] = $filename;
+
 
         $participantType = ParticipantType::create($input);
 
         $id = $participantType->id;
-        $path = $request->file('url')->storeAs('certificates/' . $id, $filename, 'public');
+
+        $file->move(resource_path('/views/certificates/' . $id), $filename);
 
         if ($request->hasFile('template_files')) {
-            $directory = 'public/templates/' . $id;
-            foreach ($request->file('template_files') as $templateFile) {
-                $templateFileName = $templateFile->getClientOriginalName();
-                $templateFile->storeAs($directory, $templateFileName);
+            foreach ($request->file('template_files') as $file) {
+                $filename = $file->getClientOriginalName();
+                $file->move(public_path('/assets/backend/images/certificates/' . $id), $filename);
+                $input['template_files'] = $filename;
             }
         }
+
+        
         return redirect('admin/events/' . $eventid . '/participant-types')->with('message', 'Participant Type Created Successfully..');
     }
 
@@ -124,7 +100,7 @@ class ParticipantTypeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $eventid, $participantTypeId)
+    public function update(ParticipantTypeUpdateeRequest $request, $eventid, $participantTypeId)
     {
         $participantType = ParticipantType::findOrFail($participantTypeId);
         $participantType->name = $request->name;

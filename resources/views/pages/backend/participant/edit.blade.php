@@ -90,21 +90,21 @@
                 </div> --}}
 
                 <div class="row mb-3">
-                    <label for="participantType_id" class="col-sm-2 col-form-label">Participant Type<span
+                    <label for="participant_type_id" class="col-sm-2 col-form-label">Participant Type<span
                             class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <select id="participantType_id" name="participantType_id" class="custom-select form-control">
+                        <select id="participant_type_id" name="participant_type_id" class="custom-select form-control">
                             <option value="">Select Participant Type</option>
                             @foreach ($participantTypes as $participantType)
                                 <option
-                                    value="{{ $participantType->id }}"{{ $participantType->id == $participant->participantType_id ? 'selected' : '' }}>
+                                    value="{{ $participantType->id }}"{{ $participantType->id == $participant->participant_type_id ? 'selected' : '' }}>
 
                                     {{ $participantType->name }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
-                    @error('participantType_id')
+                    @error('participant_type_id')
                         <span class='text-danger'>{{ $message }}</span>
                     @enderror
                 </div>
