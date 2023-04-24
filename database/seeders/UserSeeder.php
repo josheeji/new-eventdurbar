@@ -20,13 +20,13 @@ class UserSeeder extends Seeder
                 'name' => 'Bidur Joshi',
 
                 'email' => 'bidurjoshi@gmail.com',
-                'password' => Hash::make('19QpXEc9Y^mM')
+                'password' => Hash::make('password')
             ],
             [
                 'name' => 'PeaceNepal',
 
                 'email' => 'peacenepal@gmail.com',
-                'password' => Hash::make('19QpXEc9Y^mM')
+                'password' => Hash::make('password')
             ],
         ];
         foreach ($users as $user) {

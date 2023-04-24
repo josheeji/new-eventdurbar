@@ -11,8 +11,6 @@
         </li>
 
         <!-- End Dashboard Nav -->
-
-
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ URL::to('/home') }}">
                 <i class="bi bi-view-stacked"></i>
@@ -63,12 +61,8 @@
                         <span>Logout</span>
                     </button>
                 </form>
-
             </li>
         </li>
-
-
-
     </ul>
 
 

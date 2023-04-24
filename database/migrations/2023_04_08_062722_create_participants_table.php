@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('participants', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('affilated_institute')->nullable();
-            $table->string('post');
+            $table->string('affilated_institute')->nullable()->nullable();
+            $table->string('post')->nullable();
             $table->unsignedBigInteger('event_id');
-            $table->unsignedBigInteger('participantType_id')->nullable();
+            $table->unsignedBigInteger('participant_type_id');
 
             $table->timestamps();
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
-            $table->foreign('participantType_id')->references('id')->on('participant_types')->onDelete('cascade');
+            $table->foreign('participant_type_id')->references('id')->on('participant_types')->onDelete('cascade');
       
         });
     }

@@ -17,8 +17,5 @@ class ParticipantType extends Model
         'template_width',
         'template_height'
     ];
-
-
-
     
 }

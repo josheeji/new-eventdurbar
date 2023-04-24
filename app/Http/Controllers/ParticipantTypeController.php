@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ParticipantTypeCreateRequest;
+use App\Http\Requests\ParticipantTypeUpdateeRequest;
 use App\Models\Event;
 use App\Models\ParticipantType;
 use Illuminate\Http\Request;
@@ -35,8 +37,25 @@ class ParticipantTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, $eventid)
+    public function store(ParticipantTypeCreateRequest $request, $eventid)
     {
+        // // $input = $request->all();
+
+        // // if ($request->hasFile('image')) {
+        // //     $filename = microtime() . $request->file('image')->getClientOriginalName();
+        // //     $existing_path = $input['image'];
+        // //     if (Storage::disk('public')->exists($existing_path)) {
+        // //         Storage::disk('public')->delete($existing_path);
+        // //     }
+        // //     $path = $request->file('image')->storeAs('images/events', $filename);
+        // //     $input['image'] = '/storage/' . $path;
+        // // }
+
+        // $event = Event::findOrFail($request->id);
+        // $event->update($input);
+
+
+
         $input = $request->only(
             'name',
             'event_id',
@@ -49,11 +68,9 @@ class ParticipantTypeController extends Controller
         $input['url'] = $filename;
 
 
-
         $participantType = ParticipantType::create($input);
 
         $id = $participantType->id;
-        // dd($id);
 
         $file->move(resource_path('/views/certificates/' . $id), $filename);
 
@@ -64,6 +81,8 @@ class ParticipantTypeController extends Controller
                 $input['template_files'] = $filename;
             }
         }
+
+        
         return redirect('admin/events/' . $eventid . '/participant-types')->with('message', 'Participant Type Created Successfully..');
     }
 
@@ -81,7 +100,7 @@ class ParticipantTypeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $eventid, $participantTypeId)
+    public function update(ParticipantTypeUpdateeRequest $request, $eventid, $participantTypeId)
     {
         $participantType = ParticipantType::findOrFail($participantTypeId);
         $participantType->name = $request->name;

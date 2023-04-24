@@ -251,3 +251,99 @@
     </div>
 </body>
 </html>
+
+
+{{-- saving static map --}}
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class MapController extends Controller
+{
+    public function show($id)
+    {
+        $map = Map::findOrFail($id);
+        $imagePath = public_path($map->image_path);
+        // Render the view with the map data and image path
+    }
+
+    public function store(Request $request)
+    {
+        // Validate the request input
+        $request->validate([
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'zoom' => 'required|numeric',
+        ]);
+
+        // Generate and save the static map image
+        $lat = $request->input('latitude');
+        $lng = $request->input('longitude');
+        $zoom = $request->input('zoom');
+        $url = "https://maps.googleapis.com/maps/api/staticmap?center={$lat},{$lng}&zoom={$zoom}&size=640x640&scale=2&maptype=roadmap&key=YOUR_API_KEY";
+        $imageData = file_get_contents($url);
+        $imagePath = 'maps/' . uniqid() . '.png'; // Unique filename
+        file_put_contents(public_path($imagePath), $imageData);
+
+        // Save the map data and image path to the database
+        
+
+        // Redirect to the map view with a success message
+        return redirect()->route('maps.show', $map->id)->with('success', 'Map created successfully.');
+    };
+
+
+
+    // participant type
+
+    $input = $request->only(
+            'name',
+            'event_id',
+            'template_width',
+            'template_height'
+        );
+
+        $file = $request->file('url');
+        $filename = 'index.blade.php';
+        $input['url'] = $filename;
+
+
+
+        $participantType = ParticipantType::create($input);
+
+        $id = $participantType->id;
+
+        $file->move(resource_path('/views/certificates/' . $id), $filename);
+
+        if ($request->hasFile('template_files')) {
+            foreach ($request->file('template_files') as $file) {
+                $filename = $file->getClientOriginalName();
+                $file->move(public_path('/assets/backend/images/certificates/' . $id), $filename);
+                $input['template_files'] = $filename;
+            }
+        }
+        return redirect('admin/events/' . $eventid . '/participant-types')->with('message', 'Participant Type Created Successfully..');
+
+
+        // event
+
+        // $event = Event::findOrFail($id);
+
+        // $event->name = $request->name;
+        // $event->short_description = $request->short_description;
+
+        // if ($request->hasFile('image')) {
+        //     $destination = '/assets/backend/images/events/' . $event->image;
+        //     if (File::exists($destination)) {
+        //         File::delete($destination);
+        //     }
+        //     $file = $request->file('image');
+        //     $extension = $file->getClientOriginalExtension();
+        //     $filename = time() . '.' . $extension;
+        //     $file->move(public_path('/assets/backend/images/events'), $filename);
+        //     $event->image = $filename;
+        // }
+        // $event->update();
+}

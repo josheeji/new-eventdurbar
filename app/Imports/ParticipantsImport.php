@@ -30,7 +30,7 @@ class ParticipantsImport implements ToCollection, WithHeadingRow
         foreach ($rows as $row) {
             Participant::create([
                 'event_id' => $this->eventId,
-                'participantType_id' => $this->participantTypeId,
+                'participant_type_id' => $this->participantTypeId,
 
                 'name' => $row['name'],
 

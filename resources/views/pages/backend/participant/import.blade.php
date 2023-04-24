@@ -9,13 +9,13 @@
             <a href="/admin/events/{{$event->id}}/participants"> <button type="button" class="btn btn-success">Back
                 </button> </a>
 
-            {{-- @if ($errors->any())
+            @if ($errors->any())
                 <div class="alert alert-danger">
                     @foreach ($errors->all() as $error)
                         <div>{{ $error }}</div>
                     @endforeach
                 </div>
-            @endif --}}
+            @endif
             <hr>
             <!-- Horizontal Form -->
 
@@ -50,10 +50,10 @@
                 </div> --}}
 
                 <div class="row mb-3">
-                    <label for="participantType_id" class="col-sm-2 col-form-label">Participant Type<span
+                    <label for="participant_type_id" class="col-sm-2 col-form-label">Participant Type<span
                             class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <select id="participantType_id" name="participantType_id" class="custom-select form-control">
+                        <select id="participant_type_id" name="participant_type_id" class="custom-select form-control">
                             <option value="">Participant Type</option>
                             @foreach ($participantTypes as $participantType)
                             
@@ -63,7 +63,7 @@
                             @endforeach
                         </select>
                     </div>
-                    @error('participantType_id')
+                    @error('participant_type_id')
                         <span class='text-danger'>{{ $message }}</span>
                     @enderror
                 </div>

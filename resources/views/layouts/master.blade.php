@@ -7,7 +7,17 @@
     <title>@yield('title')</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
+     
 
+    {{-- Bootstrap 5 CDN Link --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+      <link href="/assets/backend/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+      <link href="/assets/backend/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+      <link href="/assets/backend/vendor/quill/quill.snow.css" rel="stylesheet">
+      <link href="/assets/backend/vendor/quill/quill.bubble.css" rel="stylesheet">
+      <link href="/assets/backend/vendor/remixicon/remixicon.css" rel="stylesheet">
+  
 
     {{-- tags inputs --}}
 
@@ -35,8 +45,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    {{-- Bootstrap 5 CDN Link --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
     <!-- Favicons -->
@@ -52,13 +60,7 @@
 
 
     <!-- Vendor CSS Files -->
-    <link href="{{ asset('/assets/backend/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="/assets/backend/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="/assets/backend/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="/assets/backend/vendor/quill/quill.snow.css" rel="stylesheet">
-    <link href="/assets/backend/vendor/quill/quill.bubble.css" rel="stylesheet">
-    <link href="/assets/backend/vendor/remixicon/remixicon.css" rel="stylesheet">
-
+  
     <!-- Template Main CSS File -->
     <link href="/assets/backend/css/style.css" rel="stylesheet">
 
@@ -86,9 +88,9 @@
 
 <body class="">
 
-{{-- @include('layouts.navigation') --}}
+    {{-- @include('layouts.navigation') --}}
 
-    
+
 
     @yield('navigations')
 
