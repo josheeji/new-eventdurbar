@@ -25,7 +25,7 @@ class EventUpdateRequest extends FormRequest
     {
         if ($this->getMethod() == "PUT") {
             $rules = [
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // add any additional validation rules for the image field
+                'image' => 'nullable|image|max:2048', // accepts image files up to 2MB
 
                 'name' => [
                     'required',

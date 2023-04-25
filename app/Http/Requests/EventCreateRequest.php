@@ -23,17 +23,15 @@ class EventCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|unique:events,name',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                // 'short_description' => 'nullable|string|max:255',
-            
-            //     'name' => [
-            //         'required',
-            //         'string',
-            //         'max:255',
-            //         'unique:users,name'                ],
-            // ];
-            ];
-     
+            'slug' => 'required|unique:events|max:255',
+
+            'name' => 'required|string|max:255',
+            // 'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+
+            'image' => 'nullable|image|max:2048', // accepts image files up to 2MB
+            // 'short_description' => 'nullable|string|max:255',
+
+
+        ];
     }
 }

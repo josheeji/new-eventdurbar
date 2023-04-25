@@ -34,10 +34,26 @@ class EventController extends Controller
      */
     public function store(EventCreateRequest $request)
     {
-        $input = $request->all();
-        $filename = microtime() . '.' . $request->file('image')->getClientOriginalExtension();
-        $path = $request->file('image')->storeAs('events', $filename, 'public');
-        $input['image'] = '/storage/' . $path;
+        $input = $request->only(
+            'event_slug',
+            'name',
+            'short_description'
+        );
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = microtime() . '.' . $extension;
+            $path = $file->storeAs('public/events', $filename);
+            $input['image'] = $filename;
+        }
+
+
+
+        // $input = $request->all();
+
+        // $filename = microtime() . '.' . $request->file('image')->getClientOriginalExtension();
+        // $path = $request->file('image')->storeAs('events', $filename, 'public');
+        // $input['image'] = '/storage/' . $path;
         $event = Event::create($input);
         return redirect('/admin/events')->with('message', 'Event Created Successfullyy..');
     }
@@ -54,20 +70,23 @@ class EventController extends Controller
      */
     public function update(EventUpdateRequest $request, $id)
     {
-        // Get the event to be updated
         $event = Event::findOrFail($id);
+        $event->name = $request->name;
+        $event->event_slug = $request->event_slug;
 
-        // Update the event with the new input data
-        $input = $request->all();
-
+        $oldImage = $event['image'];
         if ($request->hasFile('image')) {
-            $filename = microtime() . '.' . $request->file('image')->getClientOriginalExtension();
-            $path = $request->file('image')->storeAs('public/events', $filename);
-            $input['image'] = '/storage/events/' . $filename;
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = microtime() . '.' . $extension;
+            $path = $file->storeAs('public/events', $filename);
+            if ($oldImage && Storage::exists('public/events/' . $oldImage)) {
+                Storage::delete('public/events/' . $oldImage);
+            }
+            $event['image'] = $filename;
         }
+        $event->update();
 
-        $event->update($input);
- 
         // $event = Event::findOrFail($id);
 
         // $event->name = $request->name;
