@@ -24,6 +24,19 @@
             @endif
             <form class="form-sample" action="/admin/events" method="POST" enctype="multipart/form-data">
                 @csrf
+
+                <div class="row mb-3">
+                    <label for="event_slug" class="col-sm-2 col-form-label">Event event_slug<span class="text-danger">*</span></label>
+                    <div class="col-sm-10">
+                        <input type="text" name="event_slug" class="form-control" id="event_slug" placeholder="Event event_slug"
+                            value="{{ old('event_slug') }}">
+                    </div>
+                    @error('event_slug')
+                        <span class='text-danger'>{{ $message }}</span>
+                    @enderror
+                </div>
+
+
                 <div class="row mb-3">
                     <label for="name" class="col-sm-2 col-form-label">Event Name<span
                             class="text-danger">*</span></label>
@@ -73,4 +86,3 @@
 @endsection
 
 @section('scripts')
-

@@ -91,14 +91,14 @@ class ParticipantController extends Controller
         return view('pages.backend.participant.import', compact('event', 'participantTypes'));
     }
 
-    public function storeExcel(ParticipantCreateRequest $request, $eventId)
+    public function storeExcel(Request $request, $eventId)
     {
         $event = Event::findOrFail($eventId);
 
         $participantTypeId = $request->input('participant_type_id');
 
         $file = $request->file('excel_file');
-        Excel::import(new ParticipantsImport($eventId, $participantTypeId), $file);
+        Excel::import(new ParticipantsImport($eventId, $participantTypeId), $file,  null, \Maatwebsite\Excel\Excel::XLSX);
         return redirect('/admin/events/' . $eventId . '/participants')->with('message', 'File Uploaded Successfully');
     }
 

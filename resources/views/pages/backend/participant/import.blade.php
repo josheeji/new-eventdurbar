@@ -72,8 +72,8 @@
                 <div class="row mb-3">
                     <label for="excel_file" class="col-sm-2 col-form-label">File<span class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <input type="file" name="excel_file" class="form-control" id="excel_file" placeholder="Upload excel_file"
-                            value="{{ old('excel_file') }}">
+                        <input type="file" name="excel_file" class="form-control" id="excel_file"  placeholder="Upload excel_file"
+                            value="{{ old('excel_file') }}" >
                     </div>
                     @error('excel_file')
                         <span class='text-danger'>{{ $message }}</span>

@@ -61,7 +61,7 @@ Route::prefix('admin/events')->middleware('auth')->group(function () {
 });
 
 
-Route::prefix('admin/events')->group(function () {
+Route::prefix('admin/events')->middleware('auth')->group(function () {
     Route::get('/{event_id}/participant-types', [ParticipantTypeController::class, 'index']);
     Route::get('/{event_id}/participant-types/create', [ParticipantTypeController::class, 'create']);
     Route::post('/{event_id}/participant-types', [ParticipantTypeController::class, 'store']);

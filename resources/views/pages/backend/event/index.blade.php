@@ -55,8 +55,9 @@
 
                                 <th scope="col" width="10%">S.No.</th>
                                 <th scope="col">Name</th>
+                                <th scope="col">Slug</th>
                                 <th scope="col">Image</th>
-                                <th scope="col">Short Description</th>
+                                {{-- <th scope="col">Short Description</th> --}}
                                 <th scope="col">Associations</th>
                                 <th class="text-center" width="170">Action</th>
 
@@ -69,13 +70,17 @@
                                 <tr>
                                     <td>{{ $i++ }} </td>
                                     <td>{{ $event->name }}</td>
+                                    <td>{{ $event->event_slug }}</td>
 
                                     <td>
-                                        <img src="{{ asset($event->image) }}" alt="Image" width="70px" height="70px">
+                                        {{-- <img src="{{ asset($event->image) }}" alt="No Image" width="70px" height="70px"> --}}
+
+                                        <img src="{{ asset('storage/events/' . $event['image']) }}" alt="Event Image"
+                                            width="70px" height="70px">
 
                                     </td>
 
-                                    <td>{{ $event->short_description }}</td>
+                                    {{-- <td>{{ $event->short_description }}</td> --}}
                                     <td class="text-center">
 
                                         <a href="/admin/events/{{ $event->id }}/participant-types"
