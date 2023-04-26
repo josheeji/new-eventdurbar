@@ -6,7 +6,7 @@
         <div class="card-body">
             <h5 class="card-title">Upload Excel File
             </h5>
-            <a href="/admin/events/{{$event->id}}/participants"> <button type="button" class="btn btn-success">Back
+            <a href="/admin/events/{{$event->id}}/participants"> <button type="button" class="btn btn-success">View Participants
                 </button> </a>
 
             @if ($errors->any())

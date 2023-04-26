@@ -7,17 +7,17 @@
     <title>@yield('title')</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
-     
+
 
     {{-- Bootstrap 5 CDN Link --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-      <link href="/assets/backend/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-      <link href="/assets/backend/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-      <link href="/assets/backend/vendor/quill/quill.snow.css" rel="stylesheet">
-      <link href="/assets/backend/vendor/quill/quill.bubble.css" rel="stylesheet">
-      <link href="/assets/backend/vendor/remixicon/remixicon.css" rel="stylesheet">
-  
+    <link href="/assets/backend/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/backend/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/assets/backend/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="/assets/backend/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="/assets/backend/vendor/remixicon/remixicon.css" rel="stylesheet">
+
 
     {{-- tags inputs --}}
 
@@ -60,7 +60,7 @@
 
 
     <!-- Vendor CSS Files -->
-  
+
     <!-- Template Main CSS File -->
     <link href="/assets/backend/css/style.css" rel="stylesheet">
 
@@ -83,6 +83,7 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 
 </head>
 
@@ -116,9 +117,8 @@
     <script src="{{ asset('/assets/backend/js/jquery-3.6.0.min.js') }}"></script>
 
     {{-- dataTables --}}
-    <script src="//cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
 
-    <script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     @yield('scripts')
 
     <script>

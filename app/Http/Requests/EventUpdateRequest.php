@@ -26,8 +26,9 @@ class EventUpdateRequest extends FormRequest
         if ($this->getMethod() == "PUT") {
             $rules = [
                 'image' => 'nullable|image|max:2048', // accepts image files up to 2MB
+                'name' => 'required|string|max:255',
 
-                'name' => [
+                'event_slug' => [
                     'required',
                     'string',
                     'max:255',

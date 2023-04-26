@@ -48,8 +48,12 @@
                     <a href="/admin/events/create" class="btn btn-primary btn-sm">
                         <h6>Add New Event</h6>
                     </a>
+                    <a href="/admin/events/trash" class="btn btn-danger btn-sm">
+                        <h6>Go to trash</h6>
+                    </a>
                     <hr>
                     <table id="myDataTable" class="table table-bordered">
+                       
                         <thead>
                             <tr>
 
@@ -62,6 +66,7 @@
                                 <th class="text-center" width="170">Action</th>
 
                             </tr>
+                            <hr>
                         </thead>
                         <tbody>
                             @php $i=1 @endphp
@@ -73,8 +78,6 @@
                                     <td>{{ $event->event_slug }}</td>
 
                                     <td>
-                                        {{-- <img src="{{ asset($event->image) }}" alt="No Image" width="70px" height="70px"> --}}
-
                                         <img src="{{ asset('storage/events/' . $event['image']) }}" alt="Event Image"
                                             width="70px" height="70px">
 
@@ -144,5 +147,12 @@
         });
     </script>
 
+
+    {{-- <script>
+        $(document).ready(function() {
+            $('#myDataTable').DataTable();
+        });
+    </script> --}}
+    
 
 @endsection

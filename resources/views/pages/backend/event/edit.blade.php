@@ -30,7 +30,7 @@
                     <label for="event_slug" class="col-sm-2 col-form-label">Event Slug<span
                             class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" name="event_slug" class="form-control" id="event_slug" placeholder="Event event_slug"
+                        <input type="text" name="event_slug" class="form-control" id="event_slug" placeholder="Event Slug"
                             value="{{ old('event_slug') ?? $event->event_slug }}">
                     </div>
                     @error('event_slug')
@@ -57,7 +57,9 @@
                     <div class="col-sm-10">
                         <input type="file" name="image" class="form-control" id="image" placeholder="Upload Image"
                             value="{{ old('image') ?? $event->image }}">
-                            <img src="{{ asset($event->image) }}" alt="Image" width="70px" height="70px">
+                            {{-- <img src="{{ asset($event->image) }}" alt="Image" width="70px" height="70px"> --}}
+                            <img src="{{ asset('storage/events/' . $event['image']) }}" alt="Event Image"
+                            width="70px" height="70px">
                         </div>
                     @error('image')
                         <span class='text-danger'>{{ $message }}</span>

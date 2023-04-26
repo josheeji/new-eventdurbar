@@ -6,7 +6,7 @@
         <div class="card-body">
             <h5 class="card-title">Update Participant Type Table
             </h5>
-            <a href="/admin/events/{{ $event->id }}/participant-types"> <button type="button" class="btn btn-success">Back
+            <a href="/admin/events/{{ $event->id }}/participant-types"> <button type="button" class="btn btn-success">View Participant Types
                 </button> </a>
 
             @if ($errors->any())

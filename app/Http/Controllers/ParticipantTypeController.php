@@ -77,7 +77,7 @@ class ParticipantTypeController extends Controller
         if ($request->hasFile('template_files')) {
             foreach ($request->file('template_files') as $file) {
                 $filename = $file->getClientOriginalName();
-                $file->move(public_path('/assets/backend/images/certificates/' . $id), $filename);
+                $file->move(public_path('/assets/backend/templates/' . $id), $filename);
                 $input['template_files'] = $filename;
             }
         }
@@ -128,13 +128,13 @@ class ParticipantTypeController extends Controller
         // $file->move(resource_path('/views/certificates/' . $id), $filename);
 
         if ($request->hasFile('template_files')) {
-            $files = '/assets/backend/images/certificates/' . $participantType->template_files;
+            $files = '/assets/backend/templates/' . $participantType->template_files;
             if (File::exists($files)) {
                 File::delete($files);
             }
             foreach ($request->file('template_files') as $file) {
                 $filename = $file->getClientOriginalName();
-                $file->move(public_path('/assets/backend/images/certificates/' . $participantType->id), $filename);
+                $file->move(public_path('/assets/backend/templates/' . $participantType->id), $filename);
                 $participantType->template_files = $filename;
             }
         }
