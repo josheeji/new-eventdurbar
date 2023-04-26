@@ -53,6 +53,7 @@
                     </a>
                     <hr>
                     <table id="myDataTable" class="table table-bordered">
+                       
                         <thead>
                             <tr>
 
@@ -65,6 +66,7 @@
                                 <th class="text-center" width="170">Action</th>
 
                             </tr>
+                            <hr>
                         </thead>
                         <tbody>
                             @php $i=1 @endphp
@@ -145,5 +147,12 @@
         });
     </script>
 
+
+    {{-- <script>
+        $(document).ready(function() {
+            $('#myDataTable').DataTable();
+        });
+    </script> --}}
+    
 
 @endsection

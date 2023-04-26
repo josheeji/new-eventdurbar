@@ -57,7 +57,7 @@
                                 <th scope="col">Event Slug</th>
                                 <th scope="col">Image</th>
                                 {{-- <th scope="col">Short Description</th> --}}
-                                <th scope="col">Associations</th>
+                                {{-- <th scope="col">Associations</th> --}}
                                 <th class="text-center" width="170">Action</th>
 
                             </tr>
@@ -76,12 +76,6 @@
                                             width="70px" height="70px">
 
                                     </td>
-
-                                    {{-- <td>{{ $event->short_description }}</td> --}}
-                                    <td class="text-center">
-
-
-                                    </td>
                                     <td>
                                         <button title="Delete" type="button"
                                             class="btn btn-icon btn-danger btn-circle delete deleteEventForceBtn"
@@ -89,9 +83,6 @@
 
                                         <a href="/admin/events/{{ $event->id }}/restore"
                                             class="btn btn-icon btn-circle btn-primary">Restore</a>
-
-                                        {{-- <a title="Edit" href="/admin/events/{{ $event->id }}/edit"
-                                            class="btn btn-icon btn-circle btn-light"><i class="bi bi-pencil"></i></a> --}}
 
                                     </td>
                                 </tr>

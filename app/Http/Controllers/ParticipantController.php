@@ -98,7 +98,7 @@ class ParticipantController extends Controller
         $participantTypeId = $request->input('participant_type_id');
 
         $file = $request->file('excel_file');
-        Excel::import(new ParticipantsImport($eventId, $participantTypeId), $file,  null, \Maatwebsite\Excel\Excel::XLSX);
+        Excel::import(new ParticipantsImport($eventId, $participantTypeId), $file);
         return redirect('/admin/events/' . $eventId . '/participants')->with('message', 'File Uploaded Successfully');
     }
 
@@ -110,7 +110,7 @@ class ParticipantController extends Controller
 
         $participant = Participant::findOrFail($participantId);
         $participantType = $participant->participantType;
-        $resourcePath = public_path('/assets/backend/images/certificates/' .  $participantType->id . '/');
+        $resourcePath = public_path('/assets/backend/templates/' .  $participantType->id . '/');
 
         $height = $participantType->template_height;
         $widht = $participantType->template_width;
