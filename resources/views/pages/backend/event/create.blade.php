@@ -28,7 +28,7 @@
                 <div class="row mb-3">
                     <label for="event_slug" class="col-sm-2 col-form-label">Event event_slug<span class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" name="event_slug" class="form-control" id="event_slug" placeholder="Event event_slug"
+                        <input type="text" name="event_slug" class="form-control" id="event_slug" placeholder="Event Slug"
                             value="{{ old('event_slug') }}">
                     </div>
                     @error('event_slug')
@@ -51,7 +51,7 @@
 
 
                 <div class="row mb-3">
-                    <label for="iamge" class="col-sm-2 col-form-label"> Image<span class="text-danger">*</span></label>
+                    <label for="iamge" class="col-sm-2 col-form-label"> Image</label>
                     <div class="col-sm-10">
                         <input type="file" name="image" class="form-control" id="image" placeholder="Event Image"
                             value="{{ old('image') }}">
@@ -64,8 +64,7 @@
 
 
                 <div class="row mb-3">
-                    <label for="short_description" class="col-sm-2 col-form-label">Short Description`<span
-                            class="text-danger">*</span></label>
+                    <label for="short_description" class="col-sm-2 col-form-label">Short Description</label>
                     <div class="col-sm-10">
                         <textarea name="short_description" id="short_description" rows="4" cols="107">{{ old('short_description') }}</textarea>
                     </div>

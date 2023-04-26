@@ -54,10 +54,17 @@ Route::get('/events/{id}/download/certificates', [App\Http\Controllers\Frontend\
 Route::prefix('admin/events')->middleware('auth')->group(function () {
     Route::get('/', [EventController::class, 'index']);
     Route::get('/create', [EventController::class, 'create']);
+
+    Route::get('/trash', [EventController::class, 'trash']);
+
     Route::post('/', [EventController::class, 'store']);
     Route::get('/{id}/edit', [EventController::class, 'edit']);
     Route::put('/{id}', [EventController::class, 'update']);
     Route::delete('/{id}', [EventController::class, 'destroy']);
+
+    Route::delete('/{id}/force-delete', [EventController::class, 'forceDelete']);
+
+    Route::get('/{id}/restore', [EventController::class, 'restore']);
 });
 
 

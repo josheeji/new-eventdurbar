@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Events Table')
+@section('title', 'Event Trash Table')
 
 @section('content')
 
@@ -17,7 +17,7 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="event_delete_id" id="delete_event_id">
-                        <h5>Are you sure, you want to delete this Event ?</h5>
+                        <h5>Are you sure, you want to delete this Event Permanently ?</h5>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
@@ -36,21 +36,17 @@
 
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">EventS Table
+                <h5 class="card-title">Event Trash Table
 
                 </h5>
+                <a href="{{ url('/admin/events') }}"> <button type="button" class="btn btn-success">View Events
+                    </button> </a>
 
                 <!-- Default Table -->
                 @if (session('message'))
                     <div class="alert alert-success">{{ session('message') }}</div>
                 @endif
                 <div class="card-body">
-                    <a href="/admin/events/create" class="btn btn-primary btn-sm">
-                        <h6>Add New Event</h6>
-                    </a>
-                    <a href="/admin/events/trash" class="btn btn-danger btn-sm">
-                        <h6>Go to trash</h6>
-                    </a>
                     <hr>
                     <table id="myDataTable" class="table table-bordered">
                         <thead>
@@ -58,7 +54,7 @@
 
                                 <th scope="col" width="10%">S.No.</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Slug</th>
+                                <th scope="col">Event Slug</th>
                                 <th scope="col">Image</th>
                                 {{-- <th scope="col">Short Description</th> --}}
                                 <th scope="col">Associations</th>
@@ -84,35 +80,19 @@
                                     {{-- <td>{{ $event->short_description }}</td> --}}
                                     <td class="text-center">
 
-                                        <a href="/admin/events/{{ $event->id }}/participant-types"
-                                            class="btn btn-primary"> Participant Types</a>
 
-
-                                        <a href='/admin/events/{{ $event->id }}/participants' class="btn btn-primary">
-                                            Participants</a>
-
-                                        {{-- <a title="View Participant Types"
-                                            href="/admin/events/{{ $event->id }}/participant-types"
-                                            class="btn btn-icon btn-circle btn-light"><i
-                                                class="bi bi-card-checklist"></i></a>
-                                                 --}}
-
-
-
-                                        {{-- <a title="View Participant" href="/admin/events/{{ $event->id }}/participants"
-                                            class="btn btn-icon btn-circle btn-light"><i
-                                                class="bi bi-card-checklist"></i></a> --}}
                                     </td>
                                     <td>
-
-                                        <a title="Edit" href="/admin/events/{{ $event->id }}/edit"
-                                            class="btn btn-icon btn-circle btn-light"><i class="bi bi-pencil"></i></a>
-
-
-
                                         <button title="Delete" type="button"
-                                            class="btn btn-icon btn-danger btn-circle delete deleteEventBtn"
-                                            value="{{ $event->id }}"><i class="bi bi-trash-fill"></i></button>
+                                            class="btn btn-icon btn-danger btn-circle delete deleteEventForceBtn"
+                                            value="{{ $event->id }}">Delete</button>
+
+                                        <a href="/admin/events/{{ $event->id }}/restore"
+                                            class="btn btn-icon btn-circle btn-primary">Restore</a>
+
+                                        {{-- <a title="Edit" href="/admin/events/{{ $event->id }}/edit"
+                                            class="btn btn-icon btn-circle btn-light"><i class="bi bi-pencil"></i></a> --}}
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -131,13 +111,13 @@
 
     <script>
         $(document).ready(function() {
-            $('.deleteEventBtn').click(function(e) {
+            $('.deleteEventForceBtn').click(function(e) {
                 e.preventDefault();
 
                 var event_id = $(this).val();
                 // $('#delete_event_id').val(event_id);
 
-                $('#delete_form').attr('action', '/admin/events/' + event_id);
+                $('#delete_form').attr('action', '/admin/events/' + event_id + '/force-delete');
                 $('#deleteModal').modal('show');
 
 

@@ -48,7 +48,7 @@
                     <a href="/admin/events/{{ $event->id }}/participants/import" class="btn btn-primary btn-sm">
                         <h6>Import file</h6>
                     </a>
-                    <a href="/admin/events/"> <button type="button" class="btn btn-success">Back
+                    <a href="/admin/events/"> <button type="button" class="btn btn-success">View Events
                         </button> </a>
                     <hr>
                     <table id="myDataTable" class="table table-bordered">

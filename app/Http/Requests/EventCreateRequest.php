@@ -23,8 +23,8 @@ class EventCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'slug' => 'required|unique:events|max:255',
-
+            
+            'event_slug' => 'required|string|max:255|unique:events,event_slug',
             'name' => 'required|string|max:255',
             // 'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
 
