@@ -33,8 +33,6 @@ class EventUpdateRequest extends FormRequest
 
 
                 'event_slug' => [
-                    'required',
-                    'string',
                     'max:255',
                     Rule::unique('events')->ignore($this->id),
                 ],

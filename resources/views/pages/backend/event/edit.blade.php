@@ -40,11 +40,11 @@
 
 
                 <div class="row mb-3">
-                    {{-- <label for="event_slug" class="col-sm-2 col-form-label">Event Slug<span
-                            class="text-danger">*</span></label> --}}
+                    <label for="event_slug" class="col-sm-2 col-form-label">Event Slug<span
+                            class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        {{-- <input type="text"class="form-control" name="event_slug" id="event_slug" placeholder="Event Slug"
-                            value="{{ old('event_slug') ?? $event->event_slug }}"> --}}
+                        <input type="text"class="form-control" name="event_slug" id="event_slug" placeholder="Event Slug"
+                            value="{{ old('event_slug') ?? $event->event_slug }}">
 
                         <input type="hidden" id="event_slug" name="event_slug">
 

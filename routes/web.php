@@ -135,8 +135,6 @@ Route::get('/admin/events/{id}/participant-types/download-template', function ()
     }
 });
 
-
-
 Route::get(
     '/admin/events/{event_id}/participants/{id}/download-pdf',
     [ParticipantController::class, 'generatePdf']
