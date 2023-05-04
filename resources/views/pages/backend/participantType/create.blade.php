@@ -6,7 +6,12 @@
         <div class="card-body">
             <h5 class="card-title">Create participant Type
             </h5>
-            <a href="/admin/events/{{ $event->id }}/participant-types"> <button type="button" class="btn btn-success">View Participant Types
+            <a href="/admin/events/{{ $event->id }}/participant-types"> <button type="button" class="btn btn-success">View
+                    Participant Types
+                </button> </a>
+
+            <a href="/admin/events/{{ $event->id }}/participant-types/download-demo"> <button type="button"
+                    class="btn btn-secondary">Download template
                 </button> </a>
 
 
@@ -32,8 +37,8 @@
                     <label for="name" class="col-sm-2 col-form-label">Participant Type Name<span
                             class="text-danger">*</span></label>
                     <div class="col-sm-8">
-                        <input type="text" name="name" class="form-control" id="name" placeholder="Participant Type Name"
-                            value="{{ old('name') }}">
+                        <input type="text" name="name" class="form-control" id="name"
+                            placeholder="Participant Type Name" value="{{ old('name') }}">
                     </div>
                     @error('name')
                         <span class='text-danger'>{{ $message }}</span>

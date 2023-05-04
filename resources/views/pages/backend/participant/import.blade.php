@@ -10,7 +10,7 @@
                     Participants
                 </button> </a>
 
-            <a href="/admin/events/{{ $event->id }}/participants/import/download-demo">
+            <a href="/admin/events/{{ $event->id }}/participants/import/download-participant-demo">
                 <button type="button" class="btn btn-secondary">Download Demo
                 </button>
             </a>

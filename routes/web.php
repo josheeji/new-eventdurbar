@@ -98,9 +98,41 @@ Route::prefix('admin/events/{event_id}')->middleware('auth')->group(function () 
     Route::delete('/participants/{id}', [ParticipantController::class, 'destory']);
 });
 
-Route::get('/admin/events/{event}/participants/import/download-demo', function ($event) {
+// Route::get('admin/events/{event_id}//participants/import/download-demo', function () {
+
+//     $file = storage_path('storage/participant-demo/' . 'demo.csv');
+
+//     $headers = array(
+//         'content-Type: participant/demo'
+//     );
+
+//     return Response::downlaod($file, "demo.csv",  $headers);
+
+//     // <img src="{{ asset('storage/events/' . $event->image) }}" alt="{{ $event->name }}"
+//     //                                         width="70px" height="70px">
+
+// });
+
+
+Route::get('/admin/events/{id}/participants/import/download-participant-demo', function ($event) {
     $path = storage_path('app/participant-demo/demo.csv');
     return response()->download($path);
+});
+
+Route::get('/admin/events/{id}/participant-types/download-demo', function () {
+    $path = storage_path('app/template/template.zip');
+    return response()->download($path);
+});
+
+Route::get('/admin/events/{id}/participant-types/download-template', function () {
+    $file = 'template.zip';
+    $path = Storage::path($file);
+
+    if (Storage::exists($file)) {
+        return response()->download($path, $file);
+    } else {
+        abort(404);
+    }
 });
 
 
