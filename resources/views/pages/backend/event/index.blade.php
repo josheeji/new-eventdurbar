@@ -53,7 +53,7 @@
                     </a>
                     <hr>
                     <table id="myDataTable" class="table table-bordered">
-                       
+
                         <thead>
                             <tr>
 
@@ -66,7 +66,7 @@
                                 <th class="text-center" width="170">Action</th>
 
                             </tr>
-                            <hr>
+
                         </thead>
                         <tbody>
                             @php $i=1 @endphp
@@ -78,9 +78,8 @@
                                     <td>{{ $event->event_slug }}</td>
 
                                     <td>
-                                        <img src="{{ asset('storage/events/' . $event['image']) }}" alt="Event Image"
+                                        <img src="{{ asset('storage/events/' . $event->image) }}" alt="{{ $event->name }}"
                                             width="70px" height="70px">
-
                                     </td>
 
                                     {{-- <td>{{ $event->short_description }}</td> --}}
@@ -92,14 +91,6 @@
 
                                         <a href='/admin/events/{{ $event->id }}/participants' class="btn btn-primary">
                                             Participants</a>
-
-                                        {{-- <a title="View Participant Types"
-                                            href="/admin/events/{{ $event->id }}/participant-types"
-                                            class="btn btn-icon btn-circle btn-light"><i
-                                                class="bi bi-card-checklist"></i></a>
-                                                 --}}
-
-
 
                                         {{-- <a title="View Participant" href="/admin/events/{{ $event->id }}/participants"
                                             class="btn btn-icon btn-circle btn-light"><i
@@ -153,6 +144,6 @@
             $('#myDataTable').DataTable();
         });
     </script> --}}
-    
+
 
 @endsection

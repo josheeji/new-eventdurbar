@@ -91,6 +91,10 @@ class ParticipantController extends Controller
         return view('pages.backend.participant.import', compact('event', 'participantTypes'));
     }
 
+    public function download_demo(){
+        
+    }
+
     public function storeExcel(Request $request, $eventId)
     {
         $event = Event::findOrFail($eventId);

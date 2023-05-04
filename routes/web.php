@@ -5,9 +5,11 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\ParticipantTypeController;
 use App\Models\Participant;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,19 +32,20 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::prefix('admin/')->group(function () {
-    Route::get('login', [AuthController::class, 'index'])->name('login');
-    Route::post('custom-login', [AuthController::class, 'customLOgin'])->name('login.custom');
-    
+// Route::prefix('admin/')->group(function () {
+//     Route::get('login', [AuthController::class, 'index'])->name('login');
+//     Route::post('custom-login', [AuthController::class, 'customLOgin'])->name('login.custom');
 
-    Route::get('/register', [AuthController::class, 'registration'])->name('register-user');
-    Route::post('/custom-registration', [AuthController::class, 'customRegistration'])->name('register.custom');
-});
 
-Route::get('admin/dashboard', [AuthController::class, 'dashboard'])->middleware('auth');
+//     Route::get('/register', [AuthController::class, 'registration'])->name('register-user');
+//     Route::post('/custom-registration', [AuthController::class, 'customRegistration'])->name('register.custom');
+// });
 
-Route::post('admin/logout', [AuthController::class, 'signOut'])->name('signout')->middleware('auth');
+// Route::get('admin/dashboard', [AuthController::class, 'dashboard'])->middleware('auth');
 
+// Route::post('admin/logout', [AuthController::class, 'signOut'])->name('signout')->middleware('auth');
+
+require __DIR__ . '/admin.php';
 
 
 
@@ -78,10 +81,14 @@ Route::prefix('admin/events')->middleware('auth')->group(function () {
 });
 
 
-Route::prefix('admin/events/{event_id}')->group(function () {
+Route::prefix('admin/events/{event_id}')->middleware('auth')->group(function () {
     Route::get('/participants', [ParticipantController::class, 'index']);
 
     Route::get('/participants/import', [ParticipantController::class, 'importExcel']);
+
+    // Route::get('/participants/import/download-demo', [ParticipantController::class, 'download_demo']);
+
+
     Route::post('/participants/upload-excel-file', [ParticipantController::class, 'storeExcel']);
 
     Route::get('/participants/create', [ParticipantController::class, 'create']);
@@ -89,6 +96,43 @@ Route::prefix('admin/events/{event_id}')->group(function () {
     Route::get('/participants/{id}/edit', [ParticipantController::class, 'edit']);
     Route::put('/participants/{id}', [ParticipantController::class, 'update']);
     Route::delete('/participants/{id}', [ParticipantController::class, 'destory']);
+});
+
+// Route::get('admin/events/{event_id}//participants/import/download-demo', function () {
+
+//     $file = storage_path('storage/participant-demo/' . 'demo.csv');
+
+//     $headers = array(
+//         'content-Type: participant/demo'
+//     );
+
+//     return Response::downlaod($file, "demo.csv",  $headers);
+
+//     // <img src="{{ asset('storage/events/' . $event->image) }}" alt="{{ $event->name }}"
+//     //                                         width="70px" height="70px">
+
+// });
+
+
+Route::get('/admin/events/{id}/participants/import/download-participant-demo', function ($event) {
+    $path = storage_path('app/participant-demo/demo.csv');
+    return response()->download($path);
+});
+
+Route::get('/admin/events/{id}/participant-types/download-demo', function () {
+    $path = storage_path('app/template/template.zip');
+    return response()->download($path);
+});
+
+Route::get('/admin/events/{id}/participant-types/download-template', function () {
+    $file = 'template.zip';
+    $path = Storage::path($file);
+
+    if (Storage::exists($file)) {
+        return response()->download($path, $file);
+    } else {
+        abort(404);
+    }
 });
 
 Route::get(
@@ -100,6 +144,6 @@ Route::get('/admin/participants/{id}/download-pdf', [ParticipantController::clas
 
 Route::get('/manage-site', function () {
     Artisan::call('migrate');
-    Artisan::call('db:seed');
+    // Artisan::call('db:seed');
+    Artisan::call('storage:link');
 });
-

@@ -40,9 +40,9 @@
             <div class="container-fluid p-0">
 
                 <div class="event-detail-image">
-                    <img src="/backend_assets/images/events/{{ $events->image }}" alt=""
-                        data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg"
-                        data-bgparallax="6" data-no-retina="">
+                    <img src="{{ asset('storage/events/' . $event['image']) }}" alt="Event Image" width="70px"
+                        height="70px" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat"
+                        class="rev-slidebg" data-bgparallax="6" data-no-retina="">
                 </div>
                 <!-- end .rev_slider_wrapper -->
                 {{-- <script>
@@ -146,13 +146,13 @@
                         <h2 class="title text-gray font-40  mt-0 mb-20">{{ $events->name }}</h2>
                         <div class="entry-meta mb-20">
                             <h5>
-                                <span><i class="bi bi-buildings-fill">  Organized By:</i> 
+                                <span><i class="bi bi-buildings-fill"> Organized By:</i>
                                     {{ $events->organizer_name }}</span> <br>
                                 <span><i class="bi bi-geo-alt"> Location:</i>
                                     {{ $events->location }}</span> <br>
-                                <span><i class="bi bi-calendar-event">  Start Date:</i>
+                                <span><i class="bi bi-calendar-event"> Start Date:</i>
                                     {{ $events->start_date }}</span><br>
-                                <span><i class="bi bi-calendar-event">  End Date:</i>
+                                <span><i class="bi bi-calendar-event"> End Date:</i>
                                     {{ $events->end_date }}</span><br>
                                 <span><i class="bi bi-alarm"> Time:</i>
                                     {{ \Carbon\Carbon::parse($events->event_time)->format('h:i a') }}
