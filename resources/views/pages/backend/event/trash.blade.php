@@ -72,9 +72,10 @@
                                     <td>{{ $event->event_slug }}</td>
 
                                     <td>
-                                        <img src="{{ asset('storage/events/' . $event['image']) }}" alt="Event Image"
+                                        {{-- <img src="{{ asset('storage/events/' . $event['image']) }}" alt="Event Image"
+                                            width="70px" height="70px"> --}}
+                                        <img src="{{ asset('storage/events/' . $event->image) }}" alt="{{ $event->name }}"
                                             width="70px" height="70px">
-
                                     </td>
                                     <td>
                                         <button title="Delete" type="button"

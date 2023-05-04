@@ -23,7 +23,6 @@ class EventCreateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // $event = Event::all();
         return [
             // 'event_slug' => 'required|string|max:255|unique:events,event_slug',
             // 'event_slug' => 'required|string|max:255|unique:events,event_slug,'.$this->id.',id,deleted_at,NULL',

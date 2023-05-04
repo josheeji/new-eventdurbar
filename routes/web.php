@@ -65,9 +65,10 @@ Route::prefix('admin/events')->middleware('auth')->group(function () {
     Route::put('/{id}', [EventController::class, 'update']);
     Route::delete('/{id}', [EventController::class, 'destroy']);
 
-    Route::delete('/{id}/force-delete', [EventController::class, 'forceDelete']);
-
     Route::get('/{id}/restore', [EventController::class, 'restore']);
+
+
+    Route::delete('/{id}/force-delete', [EventController::class, 'forceDelete']);
 });
 
 
@@ -86,9 +87,6 @@ Route::prefix('admin/events/{event_id}')->middleware('auth')->group(function () 
 
     Route::get('/participants/import', [ParticipantController::class, 'importExcel']);
 
-    // Route::get('/participants/import/download-demo', [ParticipantController::class, 'download_demo']);
-
-
     Route::post('/participants/upload-excel-file', [ParticipantController::class, 'storeExcel']);
 
     Route::get('/participants/create', [ParticipantController::class, 'create']);
@@ -97,22 +95,6 @@ Route::prefix('admin/events/{event_id}')->middleware('auth')->group(function () 
     Route::put('/participants/{id}', [ParticipantController::class, 'update']);
     Route::delete('/participants/{id}', [ParticipantController::class, 'destory']);
 });
-
-// Route::get('admin/events/{event_id}//participants/import/download-demo', function () {
-
-//     $file = storage_path('storage/participant-demo/' . 'demo.csv');
-
-//     $headers = array(
-//         'content-Type: participant/demo'
-//     );
-
-//     return Response::downlaod($file, "demo.csv",  $headers);
-
-//     // <img src="{{ asset('storage/events/' . $event->image) }}" alt="{{ $event->name }}"
-//     //                                         width="70px" height="70px">
-
-// });
-
 
 Route::get('/admin/events/{id}/participants/import/download-participant-demo', function ($event) {
     $path = storage_path('app/participant-demo/demo.csv');
@@ -144,6 +126,6 @@ Route::get('/admin/participants/{id}/download-pdf', [ParticipantController::clas
 
 Route::get('/manage-site', function () {
     Artisan::call('migrate');
-    // Artisan::call('db:seed');
+    Artisan::call('db:seed');
     Artisan::call('storage:link');
 });
