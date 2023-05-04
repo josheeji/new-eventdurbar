@@ -21,54 +21,87 @@ class EventUpdateRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
-    public function rules(): array
-    {
-        // dd($this->id);
-        if ($this->getMethod() == "PUT") {
-            $rules = [
-            // 'event_slug' => 'required|string|max:255|unique:events,event_slug,id',
-            'image' => 'nullable|image|max:2048', // accepts image files up to 2MB
-                'name' => 'required|string|max:255',
-                'short_description' => 'nullable',
+    // public function rules(): array
+    // {
+    //     // dd($this->id);
+    //     if ($this->getMethod() == "PUT") {
+    //         $rules = [
+    //             // 'event_slug' => 'required|string|max:255|unique:events,event_slug,id',
+    //             'image' => 'nullable|image|max:2048', // accepts image files up to 2MB
+    //             'name' => 'required|string|max:255',
+    //             'short_description' => 'nullable',
 
 
-                'event_slug' => [
-                    'max:255',
-                    Rule::unique('events')->ignore($this->id),
-                ],
+    //             'event_slug' => [
+    //                 'max:255',
+    //                 Rule::unique('events')->ignore($this->id),
+    //             ],
 
-                // whereNUll is used to chek the values with non deleted values
-
-
-                // 'event_slug' => [
-                //     'required',
-                //     Rule::unique('events')->ignore($this->id)->whereNull('deleted_at')
-                // ],
-            ];
-        }
+    //             // whereNUll is used to chek the values with non deleted values
 
 
-        return $rules;
-
-        // return [
-        //     'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // add any additional validation rules for the image field
-
-        //     'name' => [
-        //         'required',
-        //         'string',
-        //         'max:255',
-        //         Rule::unique('events')->ignore($this->event),
-        //     ],
-        // ];
-    }
+    //             // 'event_slug' => [
+    //             //     'required',
+    //             //     Rule::unique('events')->ignore($this->id)->whereNull('deleted_at')
+    //             // ],
+    //         ];
+    //     }
 
 
-
+    //     return $rules;
 
     //     return [
+    //         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // add any additional validation rules for the image field
 
-    //         'name' => 'required|string|max:255',
-    //         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //         'short_description' => 'nullable|string|max:255',
+    //         'name' => [
+    //             'required',
+    //             'string',
+    //             'max:255',
+    //             Rule::unique('events')->ignore($this->event),
+    //         ],
+    //     ];
+    // }
 
+
+
+
+    // //     return [
+
+    // //         'name' => 'required|string|max:255',
+    // //         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    // //         'short_description' => 'nullable|string|max:255',
+
+
+
+    public function rules(): array
+    {
+        return [
+            // 'event_slug' => 'required|string|max:255|unique:events,event_slug',
+            // 'event_slug' => 'required|string|max:255|unique:events,event_slug,'.$this->id.',id,deleted_at,NULL',
+
+            'name' => 'required|string|max:255',
+            'short_description' => 'nullable|string|max:255',
+            'image' => 'nullable|image|max:2048', // accepts image files up to 2MB
+
+            // 'event_slug' => [
+            //     'required',
+            //     'string',
+            //     'max:255',
+            //     Rule::unique('events')->where(function ($query) {
+            //         $query->whereNull('deleted_at')->orWhereNotNull('deleted_at');
+            //     })->ignore($this->id)
+            // ],
+
+            'event_slug' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('events')->where(function ($query) {
+                    $query->whereNull('deleted_at')->orWhereNotNull('deleted_at');
+                    $query->where('id');
+                })
+            ],
+
+        ];
+    }
 }

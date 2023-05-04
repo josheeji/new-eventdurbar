@@ -22,15 +22,6 @@ class EventController extends Controller
         return view('pages.backend.event.index', compact('events'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-
-    public function trash()
-    {
-        $events = Event::onlyTrashed()->get();
-        return view('pages.backend.event.trash', compact('events'));
-    }
 
 
     public function create()
@@ -38,13 +29,6 @@ class EventController extends Controller
         return view('pages.backend.event.create');
     }
 
-
-
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(EventCreateRequest $request)
     {
 
@@ -52,11 +36,6 @@ class EventController extends Controller
         $input->event_slug = Str::slug($request->event_slug);
         $input->name = $request->name;
         $input->short_description = $request->short_description;
-        // $input->image = $request->image;
-
-        // $file = $request->file('image');
-        // $filename = $file->getClientOriginalName();
-        // $path = $file->storeAs('public/events', $filename);
 
 
         if ($request->hasFile('image')) {
@@ -67,21 +46,9 @@ class EventController extends Controller
             $path = $file->storeAs('public/events', $filename);
             $input['image'] = $filename;
         }
-
-        // $input = $request->all();
-        // $filename = microtime() . '.' . $request->file('image')->getClientOriginalExtension();
-        // $path = $request->file('image')->storeAs('events', $filename, 'public');
-        // $input['image'] = '/storage/' . $path;
-        // $event = Event::create($input);
-
         $input->save();
         return redirect('/admin/events')->with('message', 'Event Created Successfullyy..');
     }
-
-
-
-
-
 
     public function edit(Request $request, $id)
     {
@@ -89,14 +56,12 @@ class EventController extends Controller
         return view('pages.backend.event.edit', compact('event'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(EventUpdateRequest $request, $id)
     {
         $event = Event::findOrFail($id);
-        $event->event_slug = Str::slug($request->event_slug);
         $event->name = $request->name;
+
+        $event->event_slug = Str::slug($request->event_slug);
         $event->short_description = $request->short_description;
 
         if ($request->hasFile('image')) {
@@ -109,62 +74,25 @@ class EventController extends Controller
             $event->image = $filename;
         }
 
-
-
-
-
-
-
-        // $oldImage = $event['image'];
-        // if ($request->hasFile('image')) {
-        //     $file = $request->file('image');
-        //     $extension = $file->getClientOriginalExtension();
-        //     $filename = microtime() . '.' . $extension;
-        //     $path = $file->store('events', 'public');
-        //     // $path = $file->storeAs('public/events', $filename);
-
-        //     if ($oldImage && Storage::exists('public/events/' . $oldImage)) {
-        //         Storage::delete('events/' . $oldImage);
-        //     }
-        //     $event['image'] = $filename;
-        // }
         $event->update();
-
-        // $event = Event::findOrFail($id);
-
-        // $event->name = $request->name;
-        // $event->short_description = $request->short_description;
-
-        // if ($request->hasFile('image')) {
-        //     $destination = '/assets/backend/images/events/' . $event->image;
-        //     if (File::exists($destination)) {
-        //         File::delete($destination);
-        //     }
-        //     $file = $request->file('image');
-        //     $extension = $file->getClientOriginalExtension();
-        //     $filename = time() . '.' . $extension;
-        //     $file->move(public_path('/assets/backend/images/events'), $filename);
-        //     $event->image = $filename;
-        // }
-        // $event->update();
-
         return redirect('/admin/events')->with('meaasge', 'Event Updated Successfully..');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    public function trash()
+    {
+        $events = Event::onlyTrashed()->get();
+        return view('pages.backend.event.trash', compact('events'));
+    }
+
     public function destroy($id)
     {
         $event = Event::findOrFail($id);
         $event->delete();
-
-
         return redirect('/admin/events')
             ->with('message', 'Event Deleted successfully..');
     }
 
-    public function restore(EventCreateRequest $request, $id)
+    public function restore($id)
     {
         $event = Event::withTrashed()->findOrFail($id);
         if ($event->trashed()) {
@@ -175,7 +103,7 @@ class EventController extends Controller
             ->with('message', 'Event Restored successfully..');
     }
 
-    public function forceDelete(EventUpdateRequest $request, $id)
+    public function forceDelete($id)
     {
         $event = Event::withTrashed()->findOrFail($id);
         if ($event->trashed()) {
