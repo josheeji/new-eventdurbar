@@ -5,9 +5,11 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\ParticipantTypeController;
 use App\Models\Participant;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +85,10 @@ Route::prefix('admin/events/{event_id}')->middleware('auth')->group(function () 
     Route::get('/participants', [ParticipantController::class, 'index']);
 
     Route::get('/participants/import', [ParticipantController::class, 'importExcel']);
+
+    // Route::get('/participants/import/download-demo', [ParticipantController::class, 'download_demo']);
+
+
     Route::post('/participants/upload-excel-file', [ParticipantController::class, 'storeExcel']);
 
     Route::get('/participants/create', [ParticipantController::class, 'create']);
@@ -91,6 +97,13 @@ Route::prefix('admin/events/{event_id}')->middleware('auth')->group(function () 
     Route::put('/participants/{id}', [ParticipantController::class, 'update']);
     Route::delete('/participants/{id}', [ParticipantController::class, 'destory']);
 });
+
+Route::get('/admin/events/{event}/participants/import/download-demo', function ($event) {
+    $path = storage_path('app/participant-demo/demo.csv');
+    return response()->download($path);
+});
+
+
 
 Route::get(
     '/admin/events/{event_id}/participants/{id}/download-pdf',
