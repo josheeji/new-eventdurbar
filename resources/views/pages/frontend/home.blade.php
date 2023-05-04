@@ -30,7 +30,9 @@
                             <div class="col-sm-6 col-md-4 col-lg-4">
                                 <div class="schedule-box maxwidth500 mb-30 bg-lighter">
 
-                                    <div class="thumb"> <img src="/assets/backend/images/events/{{ $event->image }}">
+                                    <div class="thumb"> <img src="{{ asset('storage/events/' . $event['image']) }}"
+                                            alt="Event Image">
+
                                     </div>
 
                                     <div class="schedule-details clearfix p-15 pt-10">

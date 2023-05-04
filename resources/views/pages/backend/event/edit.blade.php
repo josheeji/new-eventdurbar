@@ -23,22 +23,8 @@
                 <h6 class="alert alert-success">{{ session('message') }} </h6>
             @endif
             <form class="form-sample" action="/admin/events/{{ $event->id }}" method="POST" enctype="multipart/form-data">
-                @csrf 
+                @csrf
                 @method('put')
-
-                <div class="row mb-3">
-                    <label for="event_slug" class="col-sm-2 col-form-label">Event Slug<span
-                            class="text-danger">*</span></label>
-                    <div class="col-sm-10">
-                        <input type="text" name="event_slug" class="form-control" id="event_slug" placeholder="Event Slug"
-                            value="{{ old('event_slug') ?? $event->event_slug }}">
-                    </div>
-                    @error('event_slug')
-                        <span class='text-danger'>{{ $message }}</span>
-                    @enderror
-                </div>
-
-
 
                 <div class="row mb-3">
                     <label for="name" class="col-sm-2 col-form-label">Event Name<span
@@ -52,15 +38,32 @@
                     @enderror
                 </div>
 
+
+                <div class="row mb-3">
+                    {{-- <label for="event_slug" class="col-sm-2 col-form-label">Event Slug<span
+                            class="text-danger">*</span></label> --}}
+                    <div class="col-sm-10">
+                        {{-- <input type="text"class="form-control" name="event_slug" id="event_slug" placeholder="Event Slug"
+                            value="{{ old('event_slug') ?? $event->event_slug }}"> --}}
+
+                        <input type="hidden" id="event_slug" name="event_slug">
+
+                    </div>
+                    @error('event_slug')
+                        <span class='text-danger'>{{ $message }}</span>
+                    @enderror
+                </div>
+
+
                 <div class="row mb-3">
                     <label for="image" class="col-sm-2 col-form-label">Image<span class="text-danger">*</span></label>
                     <div class="col-sm-10">
                         <input type="file" name="image" class="form-control" id="image" placeholder="Upload Image"
                             value="{{ old('image') ?? $event->image }}">
-                            {{-- <img src="{{ asset($event->image) }}" alt="Image" width="70px" height="70px"> --}}
-                            <img src="{{ asset('storage/events/' . $event['image']) }}" alt="Event Image"
-                            width="70px" height="70px">
-                        </div>
+                        {{-- <img src="{{ asset($event->image) }}" alt="Image" width="70px" height="70px"> --}}
+                        <img src="{{ asset('storage/events/' . $event['image']) }}" alt="Event Image" width="70px"
+                            height="70px">
+                    </div>
                     @error('image')
                         <span class='text-danger'>{{ $message }}</span>
                     @enderror
@@ -87,5 +90,40 @@
 
         <!-- End Horizontal Form -->
     </div>
+
+@endsection
+
+@section('scripts')
+
+    <script>
+        $(document).ready(function() {
+            var nameInput = $('#name');
+            var slugInput = $('#event_slug');
+
+            // Set initial slug based on the current value of the name input
+            slugInput.val(generateSlug(nameInput.val()));
+
+            // Update slug when name input changes
+            nameInput.on('input', function() {
+                var name = $(this).val();
+                var slug = generateSlug(name);
+                slugInput.val(slug);
+            });
+
+            // Update slug when label for name input is clicked
+            $('label[for="name"]').on('click', function() {
+                var name = nameInput.val();
+                var slug = generateSlug(name);
+                slugInput.val(slug);
+            });
+
+            function generateSlug(name) {
+                return name.trim()
+                    .toLowerCase()
+                    .replace(/[^a-z0-9-]+/g, '-')
+                    .replace(/^-+|-+$/g, '');
+            }
+        });
+    </script>
 
 @endsection

@@ -30,19 +30,20 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::prefix('admin/')->group(function () {
-    Route::get('login', [AuthController::class, 'index'])->name('login');
-    Route::post('custom-login', [AuthController::class, 'customLOgin'])->name('login.custom');
-    
+// Route::prefix('admin/')->group(function () {
+//     Route::get('login', [AuthController::class, 'index'])->name('login');
+//     Route::post('custom-login', [AuthController::class, 'customLOgin'])->name('login.custom');
 
-    Route::get('/register', [AuthController::class, 'registration'])->name('register-user');
-    Route::post('/custom-registration', [AuthController::class, 'customRegistration'])->name('register.custom');
-});
 
-Route::get('admin/dashboard', [AuthController::class, 'dashboard'])->middleware('auth');
+//     Route::get('/register', [AuthController::class, 'registration'])->name('register-user');
+//     Route::post('/custom-registration', [AuthController::class, 'customRegistration'])->name('register.custom');
+// });
 
-Route::post('admin/logout', [AuthController::class, 'signOut'])->name('signout')->middleware('auth');
+// Route::get('admin/dashboard', [AuthController::class, 'dashboard'])->middleware('auth');
 
+// Route::post('admin/logout', [AuthController::class, 'signOut'])->name('signout')->middleware('auth');
+
+require __DIR__ . '/admin.php';
 
 
 
@@ -78,7 +79,7 @@ Route::prefix('admin/events')->middleware('auth')->group(function () {
 });
 
 
-Route::prefix('admin/events/{event_id}')->group(function () {
+Route::prefix('admin/events/{event_id}')->middleware('auth')->group(function () {
     Route::get('/participants', [ParticipantController::class, 'index']);
 
     Route::get('/participants/import', [ParticipantController::class, 'importExcel']);
@@ -100,6 +101,6 @@ Route::get('/admin/participants/{id}/download-pdf', [ParticipantController::clas
 
 Route::get('/manage-site', function () {
     Artisan::call('migrate');
-    Artisan::call('db:seed');
+    // Artisan::call('db:seed');
+    Artisan::call('storage:link');
 });
-

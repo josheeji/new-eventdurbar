@@ -33,9 +33,6 @@ class EventController extends Controller
     }
 
 
-
-
-
     public function create()
     {
         return view('pages.backend.event.create');
@@ -55,24 +52,23 @@ class EventController extends Controller
         $input->event_slug = Str::slug($request->event_slug);
         $input->name = $request->name;
         $input->short_description = $request->short_description;
+        // $input->image = $request->image;
 
-        // $input = $request->only(
-        //     'event_slug',
-        //     'name',
-        //     'short_description'
-        // );
+        // $file = $request->file('image');
+        // $filename = $file->getClientOriginalName();
+        // $path = $file->storeAs('public/events', $filename);
+
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $filename = microtime() . '.' . $extension;
+            // $path = $file->store('events', 'public');
             $path = $file->storeAs('public/events', $filename);
             $input['image'] = $filename;
         }
 
-
-
         // $input = $request->all();
-
         // $filename = microtime() . '.' . $request->file('image')->getClientOriginalExtension();
         // $path = $request->file('image')->storeAs('events', $filename, 'public');
         // $input['image'] = '/storage/' . $path;
@@ -99,20 +95,39 @@ class EventController extends Controller
     public function update(EventUpdateRequest $request, $id)
     {
         $event = Event::findOrFail($id);
+        $event->event_slug = Str::slug($request->event_slug);
         $event->name = $request->name;
-        $event->event_slug = $request->event_slug;
+        $event->short_description = $request->short_description;
 
-        $oldImage = $event['image'];
         if ($request->hasFile('image')) {
+            Storage::delete('public/events/' . $event->image);
+
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
-            $filename = microtime() . '.' . $extension;
+            $filename = uniqid() . '.' . $extension;
             $path = $file->storeAs('public/events', $filename);
-            if ($oldImage && Storage::exists('public/events/' . $oldImage)) {
-                Storage::delete('public/events/' . $oldImage);
-            }
-            $event['image'] = $filename;
+            $event->image = $filename;
         }
+
+
+
+
+
+
+
+        // $oldImage = $event['image'];
+        // if ($request->hasFile('image')) {
+        //     $file = $request->file('image');
+        //     $extension = $file->getClientOriginalExtension();
+        //     $filename = microtime() . '.' . $extension;
+        //     $path = $file->store('events', 'public');
+        //     // $path = $file->storeAs('public/events', $filename);
+
+        //     if ($oldImage && Storage::exists('public/events/' . $oldImage)) {
+        //         Storage::delete('events/' . $oldImage);
+        //     }
+        //     $event['image'] = $filename;
+        // }
         $event->update();
 
         // $event = Event::findOrFail($id);
@@ -147,21 +162,9 @@ class EventController extends Controller
 
         return redirect('/admin/events')
             ->with('message', 'Event Deleted successfully..');
-
-
-
-        // $event = Event::withTrashed()->findOrFail($id);
-        // $event->delete();
-
-        // if ($event->trashed()) {
-        //     $event->restore();
-        // }
-        // return redirect('/admin/events')
-        //     ->with('message', 'Event Deleted successfully..');
-
     }
 
-    public function restore($id)
+    public function restore(EventCreateRequest $request, $id)
     {
         $event = Event::withTrashed()->findOrFail($id);
         if ($event->trashed()) {
@@ -172,7 +175,7 @@ class EventController extends Controller
             ->with('message', 'Event Restored successfully..');
     }
 
-    public function forceDelete($id)
+    public function forceDelete(EventUpdateRequest $request, $id)
     {
         $event = Event::withTrashed()->findOrFail($id);
         if ($event->trashed()) {

@@ -25,21 +25,21 @@
             </a>
         </li>
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link collapsed" href="#">
                 <i class="bi bi-file-earmark-person"></i>
                 <span>Participants</span>
             </a>
-        </li>
+        </li> --}}
 
 
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+            {{-- <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-journal-text"></i><span>Pages</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
-                {{-- <li>
+                <li>
                     <a href="/admin/events">
                         <i class="bi bi-circle"></i><span>Events</span>
                     </a>
@@ -49,9 +49,9 @@
                     <a href="/admin/participants">
                         <i class="bi bi-circle"></i><span> Participants</span>
                     </a>
-                </li> --}}
+                </li>
 
-            </ul>
+            </ul> --}}
 
             <li class="nav-item">
                 <form action="/admin/logout" method="post">

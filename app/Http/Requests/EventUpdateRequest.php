@@ -23,10 +23,14 @@ class EventUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        // dd($this->id);
         if ($this->getMethod() == "PUT") {
             $rules = [
-                'image' => 'nullable|image|max:2048', // accepts image files up to 2MB
+            // 'event_slug' => 'required|string|max:255|unique:events,event_slug,id',
+            'image' => 'nullable|image|max:2048', // accepts image files up to 2MB
                 'name' => 'required|string|max:255',
+                'short_description' => 'nullable',
+
 
                 'event_slug' => [
                     'required',
@@ -34,6 +38,14 @@ class EventUpdateRequest extends FormRequest
                     'max:255',
                     Rule::unique('events')->ignore($this->id),
                 ],
+
+                // whereNUll is used to chek the values with non deleted values
+
+
+                // 'event_slug' => [
+                //     'required',
+                //     Rule::unique('events')->ignore($this->id)->whereNull('deleted_at')
+                // ],
             ];
         }
 

@@ -26,18 +26,6 @@
                 @csrf
 
                 <div class="row mb-3">
-                    <label for="event_slug" class="col-sm-2 col-form-label">Event event_slug<span class="text-danger">*</span></label>
-                    <div class="col-sm-10">
-                        <input type="text" name="event_slug" class="form-control" id="event_slug" placeholder="Event Slug"
-                            value="{{ old('event_slug') }}">
-                    </div>
-                    @error('event_slug')
-                        <span class='text-danger'>{{ $message }}</span>
-                    @enderror
-                </div>
-
-
-                <div class="row mb-3">
                     <label for="name" class="col-sm-2 col-form-label">Event Name<span
                             class="text-danger">*</span></label>
                     <div class="col-sm-10">
@@ -45,6 +33,21 @@
                             value="{{ old('name') }}">
                     </div>
                     @error('name')
+                        <span class='text-danger'>{{ $message }}</span>
+                    @enderror
+                </div>
+
+
+                <div class="row mb-3">
+                    {{-- <label for="event_slug" class="col-sm-2 col-form-label">Event Slug<span
+                            class="text-danger">*</span></label> --}}
+                    <div class="col-sm-10">
+                        {{-- <input type="text" name="event_slug" id="event_slug" class="form-control" id="event_slug"
+                            placeholder="Event Slug" value="{{ old('event_slug') }}"> --}}
+                        <input type="hidden" id="event_slug" name="event_slug">
+
+                    </div>
+                    @error('event_slug')
                         <span class='text-danger'>{{ $message }}</span>
                     @enderror
                 </div>
@@ -85,3 +88,22 @@
 @endsection
 
 @section('scripts')
+
+    <script>
+        $(document).ready(function() {
+            $('#name').on('input', function() {
+                var name = $(this).val();
+                var slug = generateSlug(name);
+                $('#event_slug').val(slug);
+            });
+
+            function generateSlug(name) {
+                return name.trim()
+                    .toLowerCase()
+                    .replace(/[^a-z0-9-]+/g, '-')
+                    .replace(/^-+|-+$/g, '');
+            }
+        });
+    </script>
+
+@endsection

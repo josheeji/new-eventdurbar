@@ -9,6 +9,9 @@
             <a href="/admin/events/{{$event->id}}/participants"> <button type="button" class="btn btn-success">View Participants
                 </button> </a>
 
+                <a href="/admin/events/{{$event->id}}/participants"> <button type="button" class="btn btn-success">View Demo
+                </button> </a>
+
             @if ($errors->any())
                 <div class="alert alert-danger">
                     @foreach ($errors->all() as $error)
