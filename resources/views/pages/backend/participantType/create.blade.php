@@ -13,8 +13,6 @@
             <a href="/admin/events/{{ $event->id }}/participant-types/download-demo"> <button type="button"
                     class="btn btn-secondary">Download template
                 </button> </a>
-
-
             <hr>
             <!-- Horizontal Form -->
 

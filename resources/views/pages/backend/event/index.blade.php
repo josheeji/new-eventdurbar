@@ -90,11 +90,12 @@
 
 
                                         <a title="Add Partidcipant Type"
-                                            href="admin/events/{{ $event->id }}/participant-types">
+                                            href="/admin/events/{{ $event->id }}/participant-types">
                                             <button class="btn btn-primary" type="submit"> Participant Types</button>
                                         </a>
 
-                                        <a title="Add Participant" href="/admin/events/{{ $event->id }}/participants">
+                                        <a title="Add Participant" 
+                                        href="/admin/events/{{ $event->id }}/participants">
                                             <button class="btn btn-primary" type="submit">Participants</button>
                                         </a>
                                     </td>
