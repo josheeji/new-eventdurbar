@@ -69,10 +69,8 @@ class AuthController extends Controller
         if (Auth::check()) {
             return view('dashboard');
         }
-
         return redirect("admin/login")->withSuccess('You are not allowed to access');
     }
-
 
     public function signOut()
     {
