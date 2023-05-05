@@ -39,7 +39,7 @@
                 <h5 class="card-title">Event Trash Table
 
                 </h5>
-                <a href="{{ url('/admin/events') }}"> <button type="button" class="btn btn-success">View Events
+                <a href="{{ url('/admin/events') }}"> <button type="button" class="btn btn-success">Go To Events
                     </button> </a>
 
                 <!-- Default Table -->
@@ -51,13 +51,10 @@
                     <table id="myDataTable" class="table table-bordered">
                         <thead>
                             <tr>
-
                                 <th scope="col" width="10%">S.No.</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Event Slug</th>
                                 <th scope="col">Image</th>
-                                {{-- <th scope="col">Short Description</th> --}}
-                                {{-- <th scope="col">Associations</th> --}}
                                 <th class="text-center" width="170">Action</th>
 
                             </tr>
@@ -67,15 +64,16 @@
 
                             @foreach ($events as $event)
                                 <tr>
+                                    
                                     <td>{{ $i++ }} </td>
                                     <td>{{ $event->name }}</td>
                                     <td>{{ $event->event_slug }}</td>
 
                                     <td>
-                                        {{-- <img src="{{ asset('storage/events/' . $event['image']) }}" alt="Event Image"
-                                            width="70px" height="70px"> --}}
-                                        <img src="{{ asset('storage/events/' . $event->image) }}" alt="{{ $event->name }}"
-                                            width="70px" height="70px">
+                                        @if ($event->image)
+                                            <img src="{{ asset('storage/events/' . $event->image) }}"
+                                                alt="{{ $event->name }}" width="70px" height="70px">
+                                        @endif
                                     </td>
                                     <td>
                                         <button title="Delete" type="button"
@@ -88,9 +86,7 @@
                                     </td>
                                 </tr>
                             @endforeach
-
                         </tbody>
-
                     </table>
                 </div>
             </div>

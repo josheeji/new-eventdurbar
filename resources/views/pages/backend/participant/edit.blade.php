@@ -6,7 +6,7 @@
         <div class="card-body">
             <h5 class="card-title">Create Participant Table
             </h5>
-            <a href="/admin/events/{{ $event->id }}/participants"> <button type="button" class="btn btn-success">View Participants
+            <a href="/admin/events/{{ $event->id }}/participants"> <button type="button" class="btn btn-success">Go To Participants
                 </button> </a>
 
             {{-- @if ($errors->any())

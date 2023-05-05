@@ -6,15 +6,12 @@
         <div class="card-body">
             <h5 class="card-title">Create participant Type
             </h5>
-            <a href="/admin/events/{{ $event->id }}/participant-types"> <button type="button" class="btn btn-success">View
-                    Participant Types
+            <a href="/admin/events/{{ $event->id }}/participant-types"> <button type="button" class="btn btn-success">Go To Participant Types
                 </button> </a>
 
-            <a href="/admin/events/{{ $event->id }}/participant-types/download-demo"> <button type="button"
+            <a href="/admin/events/{{ $event->id }}/participant-types/download-template"> <button type="button"
                     class="btn btn-secondary">Download template
                 </button> </a>
-
-
             <hr>
             <!-- Horizontal Form -->
 

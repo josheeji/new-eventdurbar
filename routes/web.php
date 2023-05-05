@@ -101,20 +101,9 @@ Route::get('/admin/events/{id}/participants/import/download-participant-demo', f
     return response()->download($path);
 });
 
-Route::get('/admin/events/{id}/participant-types/download-demo', function () {
+Route::get('/admin/events/{id}/participant-types/download-template', function () {
     $path = storage_path('app/template/template.zip');
     return response()->download($path);
-});
-
-Route::get('/admin/events/{id}/participant-types/download-template', function () {
-    $file = 'template.zip';
-    $path = Storage::path($file);
-
-    if (Storage::exists($file)) {
-        return response()->download($path, $file);
-    } else {
-        abort(404);
-    }
 });
 
 Route::get(

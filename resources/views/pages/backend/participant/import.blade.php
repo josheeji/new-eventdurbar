@@ -6,8 +6,7 @@
         <div class="card-body">
             <h5 class="card-title">Upload Excel File
             </h5>
-            <a href="/admin/events/{{ $event->id }}/participants"> <button type="button" class="btn btn-success">View
-                    Participants
+            <a href="/admin/events/{{ $event->id }}/participants"> <button type="button" class="btn btn-success">Go To Participants
                 </button> </a>
 
             <a href="/admin/events/{{ $event->id }}/participants/import/download-participant-demo">

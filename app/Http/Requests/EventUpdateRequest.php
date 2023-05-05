@@ -76,30 +76,18 @@ class EventUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'event_slug' => 'required|string|max:255|unique:events,event_slug',
+            // 'event_slug' => 'required|string|max:255|unique:events,event_slug, id',
             // 'event_slug' => 'required|string|max:255|unique:events,event_slug,'.$this->id.',id,deleted_at,NULL',
 
             'name' => 'required|string|max:255',
             'short_description' => 'nullable|string|max:255',
             'image' => 'nullable|image|max:2048', // accepts image files up to 2MB
 
-            // 'event_slug' => [
-            //     'required',
-            //     'string',
-            //     'max:255',
-            //     Rule::unique('events')->where(function ($query) {
-            //         $query->whereNull('deleted_at')->orWhereNotNull('deleted_at');
-            //     })->ignore($this->id)
-            // ],
-
             'event_slug' => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('events')->where(function ($query) {
-                    $query->whereNull('deleted_at')->orWhereNotNull('deleted_at');
-                    $query->where('id');
-                })
+                Rule::unique('events')->ignore($this->id),
             ],
 
         ];

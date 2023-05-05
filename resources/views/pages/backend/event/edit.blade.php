@@ -6,7 +6,7 @@
         <div class="card-body">
             <h5 class="card-title">Update Events Table
             </h5>
-            <a href="{{ url('/admin/events') }}"> <button type="button" class="btn btn-success">Back
+            <a href="{{ url('/admin/events') }}"> <button type="button" class="btn btn-success">Go To Events
                 </button> </a>
 
             {{-- @if ($errors->any())
@@ -73,9 +73,11 @@
                     <div class="col-sm-10">
                         <input type="file" name="image" class="form-control" id="image" placeholder="Upload Image"
                             value="{{ old('image') ?? $event->image }}">
-                        {{-- <img src="{{ asset($event->image) }}" alt="Image" width="70px" height="70px"> --}}
-                        <img src="{{ asset('storage/events/' . $event['image']) }}" alt="Event Image" width="70px"
-                            height="70px">
+
+                        @if ($event->image)
+                            <img src="{{ asset('storage/events/' . $event['image']) }}" alt="Event Image" width="70px"
+                                height="70px">
+                        @endif
                     </div>
                     @error('image')
                         <span class='text-danger'>{{ $message }}</span>
@@ -86,6 +88,8 @@
                             class="text-danger">*</span></label>
                     <div class="col-sm-10">
                         <textarea name="short_description" id="short_description" rows="4" cols="107">{{ old('short_description') ?? $event->short_description }} </textarea>
+                        {{-- <textarea name="short_description"id="short_description">{{ old('short_description', $event->short_description) }} </textarea> --}}
+
                     </div>
                     @error('short_description')
                         <span class='text-danger'>{{ $message }}</span>
