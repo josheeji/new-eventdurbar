@@ -72,10 +72,10 @@
                                     <td>{{ $event->event_slug }}</td>
 
                                     <td>
-                                        {{-- <img src="{{ asset('storage/events/' . $event['image']) }}" alt="Event Image"
-                                            width="70px" height="70px"> --}}
-                                        <img src="{{ asset('storage/events/' . $event->image) }}" alt="{{ $event->name }}"
-                                            width="70px" height="70px">
+                                        @if ($event->image)
+                                            <img src="{{ asset('storage/events/' . $event->image) }}"
+                                                alt="{{ $event->name }}" width="70px" height="70px">
+                                        @endif
                                     </td>
                                     <td>
                                         <button title="Delete" type="button"
@@ -88,9 +88,7 @@
                                     </td>
                                 </tr>
                             @endforeach
-
                         </tbody>
-
                     </table>
                 </div>
             </div>

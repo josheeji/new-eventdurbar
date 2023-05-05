@@ -45,11 +45,13 @@
                     <div class="alert alert-success">{{ session('message') }}</div>
                 @endif
                 <div class="card-body">
-                    <a href="/admin/events/create" class="btn btn-primary btn-sm">
-                        <h6>Add New Event</h6>
+
+                    <a href="/admin/events/create">
+                        <button class="btn btn-primary" type="submit">Add New Event</button>
                     </a>
-                    <a href="/admin/events/trash" class="btn btn-danger btn-sm">
-                        <h6>Go to trash</h6>
+
+                    <a href="/admin/events/trash">
+                        <button class="btn btn-danger" type="submit">Go to trash</button>
                     </a>
                     <hr>
                     <table id="myDataTable" class="table table-bordered">
@@ -78,23 +80,23 @@
                                     <td>{{ $event->event_slug }}</td>
 
                                     <td>
-                                        <img src="{{ asset('storage/events/' . $event->image) }}" alt="{{ $event->name }}"
-                                            width="70px" height="70px">
+                                        @if ($event->image)
+                                            <img src="{{ asset('storage/events/' . $event->image) }}"
+                                                alt="{{ $event->name }}" width="70px" height="70px">
+                                        @endif
                                     </td>
 
-                                    {{-- <td>{{ $event->short_description }}</td> --}}
                                     <td class="text-center">
 
-                                        <a href="/admin/events/{{ $event->id }}/participant-types"
-                                            class="btn btn-primary"> Participant Types</a>
 
+                                        <a title="Add Partidcipant Type"
+                                            href="admin/events/{{ $event->id }}/participant-types">
+                                            <button class="btn btn-primary" type="submit"> Participant Types</button>
+                                        </a>
 
-                                        <a href='/admin/events/{{ $event->id }}/participants' class="btn btn-primary">
-                                            Participants</a>
-
-                                        {{-- <a title="View Participant" href="/admin/events/{{ $event->id }}/participants"
-                                            class="btn btn-icon btn-circle btn-light"><i
-                                                class="bi bi-card-checklist"></i></a> --}}
+                                        <a title="Add Participant" href="/admin/events/{{ $event->id }}/participants">
+                                            <button class="btn btn-primary" type="submit">Participants</button>
+                                        </a>
                                     </td>
                                     <td>
 
