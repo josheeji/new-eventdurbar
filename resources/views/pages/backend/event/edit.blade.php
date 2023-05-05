@@ -6,7 +6,7 @@
         <div class="card-body">
             <h5 class="card-title">Update Events Table
             </h5>
-            <a href="{{ url('/admin/events') }}"> <button type="button" class="btn btn-success">Back
+            <a href="{{ url('/admin/events') }}"> <button type="button" class="btn btn-success">Go To Events
                 </button> </a>
 
             {{-- @if ($errors->any())

@@ -59,6 +59,7 @@
                         <thead>
                             <tr>
 
+
                                 <th scope="col" width="10%">S.No.</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Slug</th>
@@ -75,6 +76,8 @@
 
                             @foreach ($events as $event)
                                 <tr>
+                                    
+
                                     <td>{{ $i++ }} </td>
                                     <td>{{ $event->name }}</td>
                                     <td>{{ $event->event_slug }}</td>
@@ -87,15 +90,12 @@
                                     </td>
 
                                     <td class="text-center">
-
-
                                         <a title="Add Partidcipant Type"
                                             href="/admin/events/{{ $event->id }}/participant-types">
                                             <button class="btn btn-primary" type="submit"> Participant Types</button>
                                         </a>
 
-                                        <a title="Add Participant" 
-                                        href="/admin/events/{{ $event->id }}/participants">
+                                        <a title="Add Participant" href="/admin/events/{{ $event->id }}/participants">
                                             <button class="btn btn-primary" type="submit">Participants</button>
                                         </a>
                                     </td>

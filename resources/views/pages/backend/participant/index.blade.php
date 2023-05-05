@@ -14,7 +14,7 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="participant_delete_id" id="delete_participant_id">
-                        <h5>Are you sure, you want to delete this Participants  ?</h5>
+                        <h5>Are you sure, you want to delete this Participants ?</h5>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
@@ -48,7 +48,7 @@
                     <a href="/admin/events/{{ $event->id }}/participants/import" class="btn btn-primary btn-sm">
                         <h6>Import file</h6>
                     </a>
-                    <a href="/admin/events/"> <button type="button" class="btn btn-success">View Events
+                    <a href="/admin/events/"> <button type="button" class="btn btn-success">Go To Events
                         </button> </a>
                     <hr>
                     <table id="myDataTable" class="table table-bordered">

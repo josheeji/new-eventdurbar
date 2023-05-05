@@ -44,7 +44,7 @@
                     <a href="/admin/events/{{ $event->id }}/participant-types/create" class="btn btn-primary btn-sm">
                         <h6>Add New Participant Types</h6>
                     </a>
-                    <a href="/admin/events/"> <button type="button" class="btn btn-success">View Events
+                    <a href="/admin/events/"> <button type="button" class="btn btn-success">Go To Events 
                         </button> </a>
                     <hr>
                     <table id="myDataTable" class="table table-bordered">
